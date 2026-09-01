@@ -1,460 +1,255 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<title>Guía CLO 3D — Universidad Autónoma de Durango</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Figtree:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#f5ead8; --text:#201e1d;
+ --n100:#fffdf9; --n200:#e8dcc8; --n300:#d6c8b2; --n400:#b8a891; --n600:#7d7264; --n700:#5d554b; --n800:#3d382f;
+ --a:#c67139; --a100:#f9e6d6; --a200:#f1cdb0; --a300:#e3ab7f; --a700:#98501f; --a900:#5e3111;
+ --s:#7a8a5e; --s100:#e9edde; --s200:#d4dcc0; --s300:#b7c39c; --s900:#3d4629;
+ --r:16px; --sh:0 2px 8px rgba(32,30,29,.06);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Figtree,-apple-system,BlinkMacSystemFont,sans-serif;-webkit-text-size-adjust:100%}
+h1,h2,h3{font-family:Caprasimo,Georgia,serif;font-weight:400;line-height:1.1}
+a{color:var(--a700);text-decoration:none}a:hover{color:var(--a900);text-decoration:underline}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--a);outline-offset:2px}
+::selection{background:var(--a200)}
+.wrap{max-width:1160px;margin:0 auto;padding:28px 20px 90px;display:flex;flex-direction:column;gap:26px}
+.kicker{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--a700);font-weight:800}
+h1{font-size:clamp(34px,7vw,54px);max-width:24ch}
+.lead{max-width:66ch;font-size:clamp(16px,3.4vw,19px);line-height:1.55;color:var(--n700);text-wrap:pretty}
+.tag{display:inline-block;font-size:12.5px;font-weight:800;padding:6px 13px;border-radius:999px;white-space:nowrap}
+.t-a{background:var(--a200);color:var(--a900)}.t-s{background:var(--s200);color:var(--s900)}
+.t-n{background:var(--n200);color:var(--n700)}.t-o{border:1px solid var(--n300);color:var(--n700)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--n100);border:1px solid var(--n200);border-radius:var(--r);padding:14px}
+input[type=search]{flex:1 1 240px;min-width:180px;font:inherit;font-size:16px;padding:12px 18px;border-radius:999px;border:1px solid var(--n300);background:#fff;color:var(--text)}
+.pill{border:1px solid var(--n300);background:transparent;color:var(--text);font-weight:700;font-size:15px;padding:11px 20px;border-radius:999px}
+.pill:hover{background:var(--a100)}.pill.on{background:var(--a);border-color:var(--a);color:#fff}
+.prim{background:var(--a);border:1px solid var(--a);color:#fff;font-weight:800;font-size:15px;padding:12px 22px;border-radius:999px}
+.prim:hover{background:var(--a700)}
+.ghost{background:transparent;border:1px solid var(--n300);color:var(--n700);font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px}
+.ghost:hover{background:var(--n200)}
+.track{height:13px;border-radius:999px;background:var(--n200);overflow:hidden}
+.track>i{display:block;height:100%;border-radius:999px;background:var(--a);transition:width .35s ease}
+.mod{display:flex;flex-direction:column;gap:14px}
+.modhead{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;border-bottom:1px solid var(--n300);padding-bottom:11px}
+.modhead h2{font-size:clamp(24px,5vw,31px)}
+.ses{display:flex;gap:14px;align-items:flex-start;background:var(--n100);border:1px solid var(--n200);border-left:6px solid var(--n300);border-radius:var(--r);padding:16px 18px;box-shadow:var(--sh);margin-bottom:12px}
+.ses.now{background:var(--a100);border-color:var(--a300);border-left-color:var(--a)}
+.ses.eval{border-left-color:var(--s)}
+.ses.done{background:var(--s100)}
+.date{flex:0 0 66px;display:flex;flex-direction:column;align-items:center;gap:1px}
+.date .d{font-family:Caprasimo,Georgia,serif;font-size:28px;line-height:1}
+.date .w,.date .m{font-size:12px;font-weight:800;color:var(--n600);text-transform:uppercase;letter-spacing:.06em}
+.body{flex:1 1 auto;display:flex;flex-direction:column;gap:9px;min-width:0}
+.body h3{font-size:clamp(18px,4vw,22px)}
+.body p{font-size:15.5px;line-height:1.5;color:var(--n800);max-width:78ch;text-wrap:pretty}
+.keys{display:flex;gap:7px;flex-wrap:wrap}
+.key{font-size:12.5px;font-weight:800;padding:5px 11px;border-radius:999px;background:var(--a200);color:var(--a900);white-space:nowrap}
+.entrega{font-size:14.5px;color:var(--s900);font-weight:700}
+.chk{flex:0 0 auto;width:30px;height:30px;border-radius:999px;border:2px solid var(--n400);background:transparent;color:#fff;font-size:15px;line-height:1;display:flex;align-items:center;justify-content:center}
+.chk.on{background:var(--s);border-color:var(--s)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;align-items:start}
+.card{background:var(--n100);border:1px solid var(--n200);border-radius:var(--r);padding:22px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:16px}
+.card h3{font-size:22px}
+.glabel{font-size:14.5px;font-weight:800;color:var(--s900)}
+.row{display:flex;gap:11px;align-items:center;padding:7px 9px;border-radius:13px}
+.row.on{background:var(--s100)}.row.on .name{text-decoration:line-through}
+.name{flex:1 1 auto;font-size:15.5px;min-width:0}
+.chk.sm{width:25px;height:25px;font-size:13px}
+.quiz{background:var(--s100);border:1px solid var(--s300);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:16px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:11px}
+.opt{border:2px solid var(--n300);background:var(--n100);color:var(--text);border-radius:var(--r);padding:15px;font-size:16px;font-weight:700;text-align:left}
+.opt.right{background:var(--s200);border-color:var(--s)}.opt.wrong{background:var(--a200);border-color:var(--a)}
+.sec{background:var(--s100);border:1px solid var(--s300);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.fecha{background:var(--n100);border-radius:13px;padding:13px 15px;display:flex;flex-direction:column;gap:3px}
+.fecha b{font-size:12.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--s900)}
+.fecha span{font-size:16.5px;font-weight:700}
+footer{border-top:1px solid var(--n200);padding-top:18px;font-size:14.5px;color:var(--n600);max-width:80ch;text-wrap:pretty}
+@media(max-width:520px){.ses{padding:14px}.date{flex-basis:52px}.wrap{padding:20px 14px 70px}}
+</style>
 </head>
 <body>
-<x-dc>
-<helmet>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="_ds/organic-86e6c52f-c11d-4b87-9c38-38bf64366951/styles.css">
-<script src="_ds/organic-86e6c52f-c11d-4b87-9c38-38bf64366951/_ds_bundle.js"></script>
-<style>
-  a { color: var(--color-accent-700); text-decoration: none; }
-  a:hover { color: var(--color-accent-900); text-decoration: underline; }
-  body { margin: 0; }
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-thumb { background: var(--color-neutral-300); border-radius: 999px; }
-</style>
-</helmet>
-<div style="min-height: 100vh; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); padding: 32px 24px 96px;">
-  <div style="max-width: 1160px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px;">
+<div class="wrap">
+ <header style="display:flex;flex-direction:column;gap:12px">
+  <span class="kicker">Universidad Autónoma de Durango · Cuatrimestre septiembre – diciembre 2026</span>
+  <h1>Diseño digital de moda con CLO 3D</h1>
+  <p class="lead">Martes y miércoles, 7:00 – 9:00 h · 27 sesiones del 1 de septiembre al 2 de diciembre. Aquí está el programa sesión por sesión y la guía completa de herramientas y atajos: busca, marca tu avance y practica en modo examen.</p>
+  <div style="display:flex;gap:9px;flex-wrap:wrap"><span class="tag t-s" id="hoy"></span><span class="tag t-o" id="prox"></span></div>
+ </header>
 
-    <header style="display: flex; flex-direction: column; gap: 14px;">
-      <span style="font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--color-accent-700); font-weight: 700;">Universidad Autónoma de Durango · Cuatrimestre septiembre – diciembre 2026</span>
-      <h1 style="font-family: var(--font-heading); font-size: 54px; line-height: 1.03; margin: 0; max-width: 24ch;">Diseño digital de moda con CLO 3D</h1>
-      <p style="margin: 0; max-width: 66ch; font-size: 19px; line-height: 1.55; color: var(--color-neutral-700); text-wrap: pretty;">Martes y miércoles, 7:00 – 9:00 h · 27 sesiones del 1 de septiembre al 2 de diciembre. Aquí está el programa sesión por sesión y la guía completa de herramientas y atajos: busca, marca tu avance y practica en modo examen.</p>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <span class="tag tag-accent-2">{{ todayLabel }}</span>
-        <span class="tag tag-outline">{{ nextLabel }}</span>
-      </div>
-    </header>
-
-    <section style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: var(--color-neutral-100); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); padding: 16px;">
-      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-        <sc-for list="{{ views }}" as="v" hint-placeholder-count="2">
-          <button onClick="{{ v.onClick }}" style="border: 1px solid {{ v.bd }}; background: {{ v.bg }}; color: {{ v.fg }}; font-family: var(--font-body); font-weight: 700; font-size: 16px; padding: 11px 22px; border-radius: 999px; cursor: pointer;">{{ v.label }}</button>
-        </sc-for>
-      </div>
-      <input class="input" type="search" placeholder="Buscar sesión, herramienta o atajo…" onInput="{{ onSearch }}" style="flex: 1 1 260px; min-width: 200px;">
-      <button onClick="{{ toggleQuiz }}" class="btn btn-primary" style="flex: 0 0 auto;">{{ quizLabel }}</button>
-    </section>
-
-    <section style="display: flex; flex-wrap: wrap; gap: 20px; align-items: center;">
-      <div style="flex: 1 1 320px; min-width: 240px;">
-        <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-bottom: 8px;">
-          <span>{{ progressTitle }}</span><span style="color: var(--color-accent-700);">{{ progressLabel }}</span>
-        </div>
-        <div style="height: 14px; border-radius: 999px; background: var(--color-neutral-200); overflow: hidden;">
-          <div style="height: 100%; width: {{ pct }}%; border-radius: 999px; background: var(--color-accent); transition: width .35s ease;"></div>
-        </div>
-      </div>
-      <button onClick="{{ resetProgress }}" class="btn btn-ghost">Reiniciar avance</button>
-    </section>
-
-    <sc-if value="{{ quizMode }}" hint-placeholder-val="{{ false }}">
-      <section style="background: var(--color-accent-2-100); border: 1px solid var(--color-accent-2-300); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; gap: 20px;">
-        <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: baseline;">
-          <h2 style="font-family: var(--font-heading); font-size: 28px; margin: 0;">Modo examen de atajos</h2>
-          <span style="font-weight: 700; color: var(--color-accent-2-900);">{{ scoreLabel }}</span>
-        </div>
-        <p style="margin: 0; font-size: 20px;">¿Cuál es el atajo de <strong style="font-family: var(--font-heading); font-size: 26px;">{{ quizPrompt }}</strong>?</p>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-          <sc-for list="{{ quizOptions }}" as="o" hint-placeholder-count="4">
-            <button onClick="{{ o.onClick }}" style="border: 2px solid {{ o.bd }}; background: {{ o.bg }}; color: var(--color-text); border-radius: var(--radius-lg); padding: 16px; font-family: var(--font-body); font-size: 17px; font-weight: 700; cursor: pointer; text-align: left;">{{ o.label }}</button>
-          </sc-for>
-        </div>
-        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-          <button onClick="{{ nextQuestion }}" class="btn btn-secondary">Siguiente pregunta</button>
-          <span style="font-size: 16px; color: var(--color-accent-2-900);">{{ quizFeedback }}</span>
-        </div>
-      </section>
-    </sc-if>
-
-    <sc-if value="{{ isPrograma }}" hint-placeholder-val="{{ true }}">
-      <div style="display: flex; flex-direction: column; gap: 28px;">
-        <sc-for list="{{ modules }}" as="m" hint-placeholder-count="4">
-          <section style="display: flex; flex-direction: column; gap: 16px;">
-            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: baseline; border-bottom: 1px solid var(--color-neutral-300); padding-bottom: 12px;">
-              <h2 style="font-family: var(--font-heading); font-size: 32px; margin: 0;">{{ m.title }}</h2>
-              <span class="tag tag-accent">{{ m.range }}</span>
-              <span class="tag tag-neutral">{{ m.count }}</span>
-              <span style="flex: 1 1 200px; font-size: 16px; color: var(--color-neutral-700);">{{ m.goal }}</span>
-            </div>
-            <sc-for list="{{ m.sessions }}" as="s" hint-placeholder-count="6">
-              <article style="display: flex; gap: 18px; align-items: flex-start; background: {{ s.bg }}; border: 1px solid {{ s.bd }}; border-left: 6px solid {{ s.accent }}; border-radius: var(--radius-lg); padding: 18px 20px; box-shadow: var(--shadow-sm);">
-                <div style="flex: 0 0 84px; display: flex; flex-direction: column; align-items: center; gap: 2px; padding-top: 2px;">
-                  <span style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--color-neutral-600);">{{ s.dow }}</span>
-                  <span style="font-family: var(--font-heading); font-size: 30px; line-height: 1;">{{ s.day }}</span>
-                  <span style="font-size: 13px; font-weight: 700; color: var(--color-neutral-600);">{{ s.month }}</span>
-                </div>
-                <div style="flex: 1 1 auto; display: flex; flex-direction: column; gap: 10px;">
-                  <div style="display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap;">
-                    <span style="font-size: 13px; font-weight: 700; color: var(--color-accent-700);">{{ s.num }}</span>
-                    <h3 style="font-family: var(--font-heading); font-size: 22px; margin: 0; line-height: 1.2;">{{ s.title }}</h3>
-                    <span class="{{ s.tagClass }}">{{ s.tipo }}</span>
-                  </div>
-                  <p style="margin: 0; font-size: 16px; line-height: 1.5; color: var(--color-neutral-800); max-width: 78ch; text-wrap: pretty;">{{ s.focus }}</p>
-                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                    <sc-for list="{{ s.keys }}" as="k" hint-placeholder-count="0">
-                      <span style="font-size: 13px; font-weight: 700; padding: 5px 11px; border-radius: 999px; background: var(--color-accent-200); color: var(--color-accent-900); white-space: nowrap;">{{ k }}</span>
-                    </sc-for>
-                  </div>
-                  <sc-if value="{{ s.entrega }}" hint-placeholder-val="{{ true }}">
-                    <span style="font-size: 15px; color: var(--color-accent-2-900); font-weight: 700;">Entrega: {{ s.entrega }}</span>
-                  </sc-if>
-                </div>
-                <button onClick="{{ s.toggle }}" title="Marcar sesión vista" style="flex: 0 0 auto; width: 30px; height: 30px; border-radius: 999px; border: 2px solid {{ s.dotBd }}; background: {{ s.dotBg }}; color: var(--color-neutral-100); font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center;">{{ s.mark }}</button>
-              </article>
-            </sc-for>
-          </section>
-        </sc-for>
-
-        <section style="background: var(--color-accent-2-100); border: 1px solid var(--color-accent-2-300); border-radius: var(--radius-lg); padding: 26px; display: flex; flex-direction: column; gap: 16px;">
-          <h2 style="font-family: var(--font-heading); font-size: 28px; margin: 0;">Fechas del calendario escolar</h2>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
-            <sc-for list="{{ keyDates }}" as="d" hint-placeholder-count="6">
-              <div style="display: flex; flex-direction: column; gap: 4px; background: var(--color-neutral-100); border-radius: 14px; padding: 14px 16px;">
-                <span style="font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent-2-900);">{{ d.what }}</span>
-                <span style="font-size: 17px; font-weight: 700;">{{ d.when }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </section>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ isAtajos }}" hint-placeholder-val="{{ false }}">
-      <div style="display: flex; flex-direction: column; gap: 20px;">
-        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
-          <sc-for list="{{ pills }}" as="p" hint-placeholder-count="4">
-            <button onClick="{{ p.onClick }}" style="border: 1px solid {{ p.bd }}; background: {{ p.bg }}; color: {{ p.fg }}; font-family: var(--font-body); font-weight: 700; font-size: 15px; padding: 10px 18px; border-radius: 999px; cursor: pointer;">{{ p.label }}</button>
-          </sc-for>
-          <span class="tag tag-neutral">{{ countLabel }}</span>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; align-items: start;">
-          <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="6">
-            <article style="background: var(--color-neutral-100); border: 1px solid var(--color-neutral-200); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 18px;">
-              <div style="display: flex; flex-direction: column; gap: 8px;">
-                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-                  <span class="tag tag-accent">Módulo {{ b.day }}</span>
-                  <span class="tag tag-outline">Bloque {{ b.n }}</span>
-                </div>
-                <h3 style="font-family: var(--font-heading); font-size: 24px; margin: 0; line-height: 1.15;">{{ b.title }}</h3>
-                <span style="font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--color-neutral-600); font-weight: 700;">{{ b.dayTitle }}</span>
-              </div>
-              <sc-for list="{{ b.groups }}" as="g" hint-placeholder-count="2">
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                  <sc-if value="{{ g.label }}" hint-placeholder-val="{{ true }}">
-                    <span style="font-size: 15px; font-weight: 700; color: var(--color-accent-2-900);">{{ g.label }}</span>
-                  </sc-if>
-                  <sc-for list="{{ g.items }}" as="it" hint-placeholder-count="4">
-                    <div style="display: flex; gap: 12px; align-items: center; padding: 8px 10px; border-radius: 14px; background: {{ it.rowBg }};">
-                      <button onClick="{{ it.toggle }}" title="Marcar como dominado" style="flex: 0 0 auto; width: 26px; height: 26px; border-radius: 999px; border: 2px solid {{ it.dotBd }}; background: {{ it.dotBg }}; color: var(--color-neutral-100); font-size: 14px; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;">{{ it.mark }}</button>
-                      <span style="flex: 1 1 auto; font-size: 16px; text-decoration: {{ it.strike }};">{{ it.name }}</span>
-                      <sc-for list="{{ it.keys }}" as="k" hint-placeholder-count="0">
-                        <span style="flex: 0 0 auto; font-size: 13px; font-weight: 700; padding: 5px 10px; border-radius: 999px; background: var(--color-accent-200); color: var(--color-accent-900); white-space: nowrap;">{{ k }}</span>
-                      </sc-for>
-                    </div>
-                  </sc-for>
-                </div>
-              </sc-for>
-            </article>
-          </sc-for>
-        </div>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
-      <p style="font-size: 20px; color: var(--color-neutral-700);">Sin resultados para esa búsqueda. Prueba con “costura”, “patrón”, “parcial” o “Alt”.</p>
-    </sc-if>
-
-    <footer style="border-top: 1px solid var(--color-neutral-200); padding-top: 20px; font-size: 15px; color: var(--color-neutral-600); max-width: 80ch; text-wrap: pretty;">Material de clase — CLO 3D · Programa y atajos. Los atajos pueden variar según la versión del software y la configuración del teclado. Tu avance se guarda solo en este navegador.</footer>
+ <div class="bar">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+   <button class="pill on" data-view="programa">Programa del cuatrimestre</button>
+   <button class="pill" data-view="atajos">Atajos y herramientas</button>
   </div>
+  <input type="search" id="q" placeholder="Buscar sesión, herramienta o atajo…">
+  <button class="prim" id="quizbtn">Modo examen</button>
+ </div>
+
+ <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:center">
+  <div style="flex:1 1 300px;min-width:220px">
+   <div style="display:flex;justify-content:space-between;font-size:13.5px;font-weight:800;margin-bottom:7px"><span id="ptitle"></span><span style="color:var(--a700)" id="plabel"></span></div>
+   <div class="track"><i id="pfill" style="width:0%"></i></div>
+  </div>
+  <button class="ghost" id="reset">Reiniciar avance</button>
+ </div>
+
+ <section class="quiz" id="quiz" hidden>
+  <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:baseline">
+   <h2 style="font-size:27px">Modo examen de atajos</h2><span style="font-weight:800;color:var(--s900)" id="score"></span>
+  </div>
+  <p style="font-size:19px">¿Cuál es el atajo de <strong style="font-family:Caprasimo,Georgia,serif;font-size:25px" id="qprompt"></strong>?</p>
+  <div class="opts" id="qopts"></div>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+   <button class="pill" id="qnext">Siguiente pregunta</button><span style="font-size:15.5px;color:var(--s900)" id="qfb">Elige una opción.</span>
+  </div>
+ </section>
+
+ <div id="programa"></div>
+ <div id="atajos" hidden></div>
+ <p id="vacio" hidden style="font-size:19px;color:var(--n700)">Sin resultados para esa búsqueda. Prueba con “costura”, “patrón”, “parcial” o “Alt”.</p>
+
+ <footer>Material de clase — CLO 3D · Programa y atajos. Los atajos pueden variar según la versión del software y la configuración del teclado. Tu avance se guarda solo en este navegador.</footer>
 </div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
-class Component extends DCLogic {
-  state = { q: "", day: 0, view: "programa", done: {}, sdone: {}, quizMode: false, quiz: null, score: 0, asked: 0, picked: null };
 
-  data = [
-    { day: 1, dayTitle: "Fundamentos + interfaz + simulación", blocks: [
-      { n: 1, title: "Descripción general de la interfaz", groups: [
-        { label: "Entorno de pantalla", items: [["Ventana 3D"],["Ventana 2D"],["Biblioteca"],["Navegador de objetos"],["Editor de propiedades"],["Barras de herramientas 2D y 3D"],["Historial"]] },
-        { label: "Guardar archivos", items: [["Guardar","Ctrl + S"],["Guardar como","Ctrl + Shift + S"],["Abrir","Ctrl + O"]] },
-        { label: "Deshacer / Rehacer", items: [["Deshacer","Ctrl + Z"],["Rehacer","Ctrl + Y"]] } ] },
-      { n: 2, title: "Navegación y selección", groups: [
-        { label: "Navegación 3D", items: [["Órbita","Alt + clic izquierdo"],["Zoom","Alt + clic derecho"],["Panorámica","Alt + clic central"],["Reset vista","Barra espaciadora"]] },
-        { label: "Navegación 2D", items: [["Zoom","Alt + clic derecho"],["Panorámica","Alt + clic central"],["Reset vista","Barra espaciadora"]] },
-        { label: "Selección", items: [["Selección rectangular"],["Selección por lazo"]] },
-        { label: "Comandos básicos", items: [["Copiar","Ctrl + C"],["Pegar","Ctrl + V"],["Pegar espejo","Ctrl + R"],["Eliminar","Del"],["Enfocar","F"]] } ] },
-      { n: 3, title: "Organización y avatar", groups: [
-        { label: "Organizar prenda", items: [["Mover"],["Rotar"],["Escalar"],["Reiniciar disposición 3D","Ctrl + F"]] },
-        { label: "Superposición", items: [["Superponer por debajo","Ctrl + ["],["Superponer por encima","Ctrl + ]"],["Voltear horizontalmente","Ctrl + G"]] },
-        { label: "Avatar", items: [["Seleccionar partes"],["Transformar"],["Mostrar / Ocultar"]] } ] },
-      { n: 4, title: "Simulación y costura básica", groups: [
-        { label: "Simulación", items: [["Simular","Q"],["Iniciar / Pausar","Barra espaciadora"],["Reset simulación"]] },
-        { label: "Mapas", items: [["Mapa de estrés","Alt + 6"],["Mapa de deformación","Alt + 7"],["Mapa de ajuste","Alt + 8"]] },
-        { label: "Costura", items: [["Costura por segmento","Shift + Q"],["Editar costura","Shift + W"],["Segmentar costura","N"],["Costura libre","M"]] } ] } ] },
-    { day: 2, dayTitle: "Creación y edición de patrones", blocks: [
-      { n: 1, title: "Anatomía del patrón", groups: [
-        { label: "", items: [["Segmentos"],["Puntos de segmento"],["Curvas"],["Costuras"]] } ] },
-      { n: 2, title: "Creación de patrones", groups: [
-        { label: "Formas base", items: [["Polígono","H"],["Rectángulo","S"],["Elipse","E"]] },
-        { label: "Transformación y edición", items: [["Transformar patrón","A"],["Editar patrón","Z"],["Editar curvatura","C"],["Editar punto de curva","V"],["Agregar punto / dividir línea","Ctrl + F"],["Edición patrón alternativa","Alt + 6"],["Transformar alternativa","Alt + 8"]] } ] },
-      { n: 3, title: "Marcas internas y edición", groups: [
-        { label: "Marcas internas", items: [["Polígono / línea interna","Ctrl + R"],["Elipse interna","Del"],["Trazar","Ctrl + J"]] },
-        { label: "Edición", items: [["Eliminar","Del"],["Fortalecer","Ctrl + H"],["Congelar","Ctrl + K"],["Desactivar patrón","Ctrl + J"]] } ] },
-      { n: 4, title: "Margen de costura y edición en 3D", groups: [
-        { label: "Margen de costura", items: [["Caminar patrones"],["Añadir margen de costura"]] },
-        { label: "Edición en 3D", items: [["Mover"],["Rotar"],["Escalar"]] },
-        { label: "Visibilidad", items: [["Ocultar patrón 3D","Shift + Q"],["Actualizar texturas","F5"],["Propiedades cuadrícula","F12"]] } ] } ] },
-    { day: 3, dayTitle: "Detalles de la prenda + acabados profesionales", blocks: [
-      { n: 1, title: "Pliegues y doblado", groups: [
-        { label: "Pliegues", items: [["Crear pliegue básico"],["Editar pliegue"],["Eliminar pliegue"]] },
-        { label: "Doblado", items: [["Crear doblado"],["Editar doblado"],["Eliminar doblado"]] } ] },
-      { n: 2, title: "Presión y volumen", groups: [
-        { label: "Herramientas", items: [["Aplicar presión"],["Editar presión"]] },
-        { label: "Aplicación práctica", items: [["Acolchados"],["Mangas con volumen"],["Efectos estructurales"]] } ] },
-      { n: 3, title: "Clonación de capa y morfología 3D", groups: [
-        { label: "Clonación", items: [["Clonar capa por encima"],["Clonar capa por debajo"],["Duplicar capa por encima"],["Duplicar capa por debajo"],["Clonar como patrón"]] },
-        { label: "Transformación", items: [["Transformar en 3D"],["Editar morfología"]] } ] },
-      { n: 4, title: "Hardware, adornos y texturas", groups: [
-        { label: "Hardware", items: [["Añadir botones"],["Añadir cremalleras"],["Añadir ojales y ganchos"],["Editar hardware"]] },
-        { label: "Texturas y costuras decorativas", items: [["Mostrar texturas 2D","Ctrl + Shift + I"],["Costuras decorativas","Ctrl + Shift + V"],["Editar costuras decorativas","Ctrl + Shift + B"],["Segmentar costuras decorativas","Ctrl + Shift + C"],["Costura decorativa libre","Shift + )"],["Segmentar costura decorativa",","]] } ] } ] }
-  ];
+<script>
+var D = {"modulos":[{"m":1,"title":"Módulo 1 · Fundamentos, interfaz y simulación","goal":"Del entorno de trabajo a una prenda simulada sobre avatar."},{"m":2,"title":"Módulo 2 · Creación y edición de patrones","goal":"Trazar, editar y coser patrones propios con margen de costura."},{"m":3,"title":"Módulo 3 · Detalles y acabados profesionales","goal":"Pliegues, volumen, hardware y texturas de calidad presentable."},{"m":4,"title":"Cierre · Proyecto y evaluación final","goal":"Prenda completa, render y presentación del proyecto."}],"sesiones":[[1,"2026-09-01",1,"Interfaz y entorno de pantalla","Recorrido por ventana 3D y 2D, biblioteca, navegador de objetos, editor de propiedades e historial. Configuración del espacio de trabajo.",["Ctrl + S","Ctrl + O"],"clase",""],[2,"2026-09-02",1,"Archivos, deshacer y primer avatar","Abrir y guardar proyectos, deshacer/rehacer, cargar avatar y prenda de la biblioteca.",["Ctrl + Shift + S","Ctrl + Z","Ctrl + Y"],"clase","Captura del espacio de trabajo configurado"],[3,"2026-09-08",1,"Navegación 3D y 2D","Órbita, zoom, panorámica y reset de vista en ambas ventanas; sincronizar la mirada 2D–3D.",["Alt + clic izquierdo","Alt + clic derecho","Barra espaciadora"],"clase",""],[4,"2026-09-09",1,"Selección y comandos básicos","Selección rectangular y por lazo; copiar, pegar, pegar espejo, eliminar y enfocar.",["Ctrl + C","Ctrl + V","Ctrl + R","F"],"clase","Ejercicio de navegación cronometrado"],[5,"2026-09-15",1,"Organizar prenda y superposición","Mover, rotar y escalar la prenda; orden de capas y volteo horizontal; reiniciar disposición 3D.",["Ctrl + F","Ctrl + [","Ctrl + ]","Ctrl + G"],"clase",""],[6,"2026-09-22",1,"Avatar: partes, transformación y visibilidad","Seleccionar partes del avatar, transformar medidas, mostrar u ocultar elementos para trabajar cómodo.",[],"clase",""],[7,"2026-09-23",1,"Primer parcial","Examen práctico: interfaz, navegación, organización de prenda y avatar, más quiz de atajos.",[],"parcial","Parcial 1 (práctico + atajos)"],[8,"2026-09-29",1,"Simulación y mapas de tensión","Simular, pausar y reiniciar; leer mapas de estrés, deformación y ajuste para corregir la prenda.",["Q","Alt + 6","Alt + 7","Alt + 8"],"clase",""],[9,"2026-09-30",1,"Costura básica","Costura por segmento, edición, segmentado y costura libre sobre una prenda sencilla.",["Shift + Q","Shift + W","N","M"],"clase","Prenda simulada de la biblioteca, cosida"],[10,"2026-10-06",2,"Anatomía del patrón","Segmentos, puntos de segmento, curvas y costuras: cómo lee CLO un patrón plano.",[],"clase",""],[11,"2026-10-07",2,"Creación de patrones","Polígono, rectángulo y elipse; construir un bloque base a medidas reales.",["H","S","E"],"clase",""],[12,"2026-10-13",2,"Transformar y editar patrón","Transformar y editar patrón, agregar puntos y dividir líneas; atajos alternativos.",["A","Z","Ctrl + F","Alt + 8"],"clase",""],[13,"2026-10-14",2,"Curvas y ajuste de líneas","Editar curvatura y puntos de curva para escotes, sisas y costados.",["C","V"],"clase","Bloque base corregido en 2D"],[14,"2026-10-20",2,"Marcas internas y edición","Líneas y elipses internas, trazar, fortalecer, congelar y desactivar patrones.",["Ctrl + R","Ctrl + J","Ctrl + H","Ctrl + K"],"clase",""],[15,"2026-10-21",2,"Segundo parcial","Examen práctico: trazo y edición de un patrón base con costuras y marcas internas.",[],"parcial","Parcial 2 (patrón base)"],[16,"2026-10-27",2,"Margen de costura y caminar patrones","Caminar patrones para verificar correspondencias y aplicar márgenes de costura.",[],"clase",""],[17,"2026-10-28",2,"Edición en 3D, texturas y cuadrícula","Mover, rotar y escalar en 3D; ocultar patrón, actualizar texturas y propiedades de cuadrícula.",["Shift + Q","F5","F12"],"clase","Patrón propio simulado sobre avatar"],[18,"2026-11-03",3,"Pliegues","Crear, editar y eliminar pliegues; aplicación en faldas y camisas.",[],"clase",""],[19,"2026-11-04",3,"Doblado","Crear, editar y eliminar doblado; puños, cuellos y dobladillos.",[],"clase",""],[20,"2026-11-10",3,"Presión y volumen","Aplicar y editar presión: acolchados, mangas con volumen y efectos estructurales.",[],"clase",""],[21,"2026-11-11",3,"Clonación de capas","Clonar y duplicar capas por encima y por debajo; clonar como patrón para forros y vistas.",[],"clase",""],[22,"2026-11-17",3,"Morfología y transformación 3D","Transformar en 3D y editar morfología para siluetas fuera del bloque base.",[],"clase",""],[23,"2026-11-18",3,"Hardware y adornos","Botones, cremalleras, ojales y ganchos; edición y colocación precisa.",[],"clase","Avance 1 del proyecto final"],[24,"2026-11-24",3,"Texturas y costuras decorativas","Mostrar texturas 2D, crear, editar y segmentar costuras decorativas; costura decorativa libre.",["Ctrl + Shift + I","Ctrl + Shift + V","Ctrl + Shift + B","Ctrl + Shift + C"],"clase",""],[25,"2026-11-25",3,"Tercer parcial","Examen práctico: prenda con pliegues o volumen, hardware y costuras decorativas.",[],"parcial","Parcial 3 (prenda con detalles)"],[26,"2026-12-01",4,"Asesoría de proyecto y render","Revisión uno a uno, ajuste de tela, iluminación y exportación de imágenes.",[],"clase","Proyecto final listo para presentar"],[27,"2026-12-02",4,"Evaluación final","Presentación del proyecto: prenda completa simulada, patronaje y láminas de render.",[],"final","Evaluación final + carpeta digital"]],"atajos":[{"day":1,"dayTitle":"Fundamentos + interfaz + simulación","blocks":[{"n":1,"title":"Descripción general de la interfaz","groups":[{"label":"Entorno de pantalla","items":[["Ventana 3D"],["Ventana 2D"],["Biblioteca"],["Navegador de objetos"],["Editor de propiedades"],["Barras de herramientas 2D y 3D"],["Historial"]]},{"label":"Guardar archivos","items":[["Guardar","Ctrl + S"],["Guardar como","Ctrl + Shift + S"],["Abrir","Ctrl + O"]]},{"label":"Deshacer / Rehacer","items":[["Deshacer","Ctrl + Z"],["Rehacer","Ctrl + Y"]]}]},{"n":2,"title":"Navegación y selección","groups":[{"label":"Navegación 3D","items":[["Órbita","Alt + clic izquierdo"],["Zoom","Alt + clic derecho"],["Panorámica","Alt + clic central"],["Reset vista","Barra espaciadora"]]},{"label":"Navegación 2D","items":[["Zoom","Alt + clic derecho"],["Panorámica","Alt + clic central"],["Reset vista","Barra espaciadora"]]},{"label":"Selección","items":[["Selección rectangular"],["Selección por lazo"]]},{"label":"Comandos básicos","items":[["Copiar","Ctrl + C"],["Pegar","Ctrl + V"],["Pegar espejo","Ctrl + R"],["Eliminar","Del"],["Enfocar","F"]]}]},{"n":3,"title":"Organización y avatar","groups":[{"label":"Organizar prenda","items":[["Mover"],["Rotar"],["Escalar"],["Reiniciar disposición 3D","Ctrl + F"]]},{"label":"Superposición","items":[["Superponer por debajo","Ctrl + ["],["Superponer por encima","Ctrl + ]"],["Voltear horizontalmente","Ctrl + G"]]},{"label":"Avatar","items":[["Seleccionar partes"],["Transformar"],["Mostrar / Ocultar"]]}]},{"n":4,"title":"Simulación y costura básica","groups":[{"label":"Simulación","items":[["Simular","Q"],["Iniciar / Pausar","Barra espaciadora"],["Reset simulación"]]},{"label":"Mapas","items":[["Mapa de estrés","Alt + 6"],["Mapa de deformación","Alt + 7"],["Mapa de ajuste","Alt + 8"]]},{"label":"Costura","items":[["Costura por segmento","Shift + Q"],["Editar costura","Shift + W"],["Segmentar costura","N"],["Costura libre","M"]]}]}]},{"day":2,"dayTitle":"Creación y edición de patrones","blocks":[{"n":1,"title":"Anatomía del patrón","groups":[{"label":"","items":[["Segmentos"],["Puntos de segmento"],["Curvas"],["Costuras"]]}]},{"n":2,"title":"Creación de patrones","groups":[{"label":"Formas base","items":[["Polígono","H"],["Rectángulo","S"],["Elipse","E"]]},{"label":"Transformación y edición","items":[["Transformar patrón","A"],["Editar patrón","Z"],["Editar curvatura","C"],["Editar punto de curva","V"],["Agregar punto / dividir línea","Ctrl + F"],["Edición patrón alternativa","Alt + 6"],["Transformar alternativa","Alt + 8"]]}]},{"n":3,"title":"Marcas internas y edición","groups":[{"label":"Marcas internas","items":[["Polígono / línea interna","Ctrl + R"],["Elipse interna","Del"],["Trazar","Ctrl + J"]]},{"label":"Edición","items":[["Eliminar","Del"],["Fortalecer","Ctrl + H"],["Congelar","Ctrl + K"],["Desactivar patrón","Ctrl + J"]]}]},{"n":4,"title":"Margen de costura y edición en 3D","groups":[{"label":"Margen de costura","items":[["Caminar patrones"],["Añadir margen de costura"]]},{"label":"Edición en 3D","items":[["Mover"],["Rotar"],["Escalar"]]},{"label":"Visibilidad","items":[["Ocultar patrón 3D","Shift + Q"],["Actualizar texturas","F5"],["Propiedades cuadrícula","F12"]]}]}]},{"day":3,"dayTitle":"Detalles de la prenda + acabados profesionales","blocks":[{"n":1,"title":"Pliegues y doblado","groups":[{"label":"Pliegues","items":[["Crear pliegue básico"],["Editar pliegue"],["Eliminar pliegue"]]},{"label":"Doblado","items":[["Crear doblado"],["Editar doblado"],["Eliminar doblado"]]}]},{"n":2,"title":"Presión y volumen","groups":[{"label":"Herramientas","items":[["Aplicar presión"],["Editar presión"]]},{"label":"Aplicación práctica","items":[["Acolchados"],["Mangas con volumen"],["Efectos estructurales"]]}]},{"n":3,"title":"Clonación de capa y morfología 3D","groups":[{"label":"Clonación","items":[["Clonar capa por encima"],["Clonar capa por debajo"],["Duplicar capa por encima"],["Duplicar capa por debajo"],["Clonar como patrón"]]},{"label":"Transformación","items":[["Transformar en 3D"],["Editar morfología"]]}]},{"n":4,"title":"Hardware, adornos y texturas","groups":[{"label":"Hardware","items":[["Añadir botones"],["Añadir cremalleras"],["Añadir ojales y ganchos"],["Editar hardware"]]},{"label":"Texturas y costuras decorativas","items":[["Mostrar texturas 2D","Ctrl + Shift + I"],["Costuras decorativas","Ctrl + Shift + V"],["Editar costuras decorativas","Ctrl + Shift + B"],["Segmentar costuras decorativas","Ctrl + Shift + C"],["Costura decorativa libre","Shift + )"],["Segmentar costura decorativa",","]]}]}]}],"fechas":[["Inicio de clases","Lunes 31 de agosto de 2026"],["Días inhábiles","16 de septiembre y 16 de noviembre"],["Exámenes parciales","21–25 sep · 19–23 oct · 23–27 nov"],["Evaluación final","30 de noviembre al 4 de diciembre"],["Exámenes extraordinarios","7 al 11 de diciembre"],["Exámenes a título","14 al 18 de diciembre"],["Suspensión de clases","20 de diciembre al 3 de enero"],["Inicio próximo cuatrimestre","5 de enero de 2027"]]};
+var MESES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],DOWS=["dom","lun","mar","mié","jue","vie","sáb"];
+var view="programa",q="",mod=0,quizOn=false,picked=null,score=0,asked=0,quiz=null;
+var sdone=load("clo3d-sesiones"),done=load("clo3d-progreso");
+function load(k){try{return JSON.parse(localStorage.getItem(k))||{}}catch(e){return{}}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function fmt(s){var p=s.split("-").map(Number),d=new Date(p[0],p[1]-1,p[2]);return{d:p[2],m:MESES[p[1]-1],w:DOWS[d.getDay()]}}
+var TODAY=iso(new Date());
 
-  modulos = [
-    { m: 1, title: "Módulo 1 · Fundamentos, interfaz y simulación", goal: "Del entorno de trabajo a una prenda simulada sobre avatar." },
-    { m: 2, title: "Módulo 2 · Creación y edición de patrones", goal: "Trazar, editar y coser patrones propios con margen de costura." },
-    { m: 3, title: "Módulo 3 · Detalles y acabados profesionales", goal: "Pliegues, volumen, hardware y texturas de calidad presentable." },
-    { m: 4, title: "Cierre · Proyecto y evaluación final", goal: "Prenda completa, render y presentación del proyecto." }
-  ];
+function allItems(){var o=[];D.atajos.forEach(function(g){g.blocks.forEach(function(b){b.groups.forEach(function(gr){gr.items.forEach(function(it){o.push({id:g.day+"-"+b.n+"-"+it[0],name:it[0],key:it[1]||""})})})})});return o}
+var ITEMS=allItems();
 
-  sesiones = [
-    [1,"2026-09-01",1,"Interfaz y entorno de pantalla","Recorrido por ventana 3D y 2D, biblioteca, navegador de objetos, editor de propiedades e historial. Configuración del espacio de trabajo.",["Ctrl + S","Ctrl + O"],"clase",""],
-    [2,"2026-09-02",1,"Archivos, deshacer y primer avatar","Abrir y guardar proyectos, deshacer/rehacer, cargar avatar y prenda de la biblioteca.",["Ctrl + Shift + S","Ctrl + Z","Ctrl + Y"],"clase","Captura del espacio de trabajo configurado"],
-    [3,"2026-09-08",1,"Navegación 3D y 2D","Órbita, zoom, panorámica y reset de vista en ambas ventanas; sincronizar la mirada 2D–3D.",["Alt + clic izquierdo","Alt + clic derecho","Barra espaciadora"],"clase",""],
-    [4,"2026-09-09",1,"Selección y comandos básicos","Selección rectangular y por lazo; copiar, pegar, pegar espejo, eliminar y enfocar.",["Ctrl + C","Ctrl + V","Ctrl + R","F"],"clase","Ejercicio de navegación cronometrado"],
-    [5,"2026-09-15",1,"Organizar prenda y superposición","Mover, rotar y escalar la prenda; orden de capas y volteo horizontal; reiniciar disposición 3D.",["Ctrl + F","Ctrl + [","Ctrl + ]","Ctrl + G"],"clase",""],
-    [6,"2026-09-22",1,"Avatar: partes, transformación y visibilidad","Seleccionar partes del avatar, transformar medidas, mostrar u ocultar elementos para trabajar cómodo.",[],"clase",""],
-    [7,"2026-09-23",1,"Primer parcial","Examen práctico: interfaz, navegación, organización de prenda y avatar, más quiz de atajos.",[],"parcial","Parcial 1 (práctico + atajos)"],
-    [8,"2026-09-29",1,"Simulación y mapas de tensión","Simular, pausar y reiniciar; leer mapas de estrés, deformación y ajuste para corregir la prenda.",["Q","Alt + 6","Alt + 7","Alt + 8"],"clase",""],
-    [9,"2026-09-30",1,"Costura básica","Costura por segmento, edición, segmentado y costura libre sobre una prenda sencilla.",["Shift + Q","Shift + W","N","M"],"clase","Prenda simulada de la biblioteca, cosida"],
-    [10,"2026-10-06",2,"Anatomía del patrón","Segmentos, puntos de segmento, curvas y costuras: cómo lee CLO un patrón plano.",[],"clase",""],
-    [11,"2026-10-07",2,"Creación de patrones","Polígono, rectángulo y elipse; construir un bloque base a medidas reales.",["H","S","E"],"clase",""],
-    [12,"2026-10-13",2,"Transformar y editar patrón","Transformar y editar patrón, agregar puntos y dividir líneas; atajos alternativos.",["A","Z","Ctrl + F","Alt + 8"],"clase",""],
-    [13,"2026-10-14",2,"Curvas y ajuste de líneas","Editar curvatura y puntos de curva para escotes, sisas y costados.",["C","V"],"clase","Bloque base corregido en 2D"],
-    [14,"2026-10-20",2,"Marcas internas y edición","Líneas y elipses internas, trazar, fortalecer, congelar y desactivar patrones.",["Ctrl + R","Ctrl + J","Ctrl + H","Ctrl + K"],"clase",""],
-    [15,"2026-10-21",2,"Segundo parcial","Examen práctico: trazo y edición de un patrón base con costuras y marcas internas.",[],"parcial","Parcial 2 (patrón base)"],
-    [16,"2026-10-27",2,"Margen de costura y caminar patrones","Caminar patrones para verificar correspondencias y aplicar márgenes de costura.",[],"clase",""],
-    [17,"2026-10-28",2,"Edición en 3D, texturas y cuadrícula","Mover, rotar y escalar en 3D; ocultar patrón, actualizar texturas y propiedades de cuadrícula.",["Shift + Q","F5","F12"],"clase","Patrón propio simulado sobre avatar"],
-    [18,"2026-11-03",3,"Pliegues","Crear, editar y eliminar pliegues; aplicación en faldas y camisas.",[],"clase",""],
-    [19,"2026-11-04",3,"Doblado","Crear, editar y eliminar doblado; puños, cuellos y dobladillos.",[],"clase",""],
-    [20,"2026-11-10",3,"Presión y volumen","Aplicar y editar presión: acolchados, mangas con volumen y efectos estructurales.",[],"clase",""],
-    [21,"2026-11-11",3,"Clonación de capas","Clonar y duplicar capas por encima y por debajo; clonar como patrón para forros y vistas.",[],"clase",""],
-    [22,"2026-11-17",3,"Morfología y transformación 3D","Transformar en 3D y editar morfología para siluetas fuera del bloque base.",[],"clase",""],
-    [23,"2026-11-18",3,"Hardware y adornos","Botones, cremalleras, ojales y ganchos; edición y colocación precisa.",[],"clase","Avance 1 del proyecto final"],
-    [24,"2026-11-24",3,"Texturas y costuras decorativas","Mostrar texturas 2D, crear, editar y segmentar costuras decorativas; costura decorativa libre.",["Ctrl + Shift + I","Ctrl + Shift + V","Ctrl + Shift + B","Ctrl + Shift + C"],"clase",""],
-    [25,"2026-11-25",3,"Tercer parcial","Examen práctico: prenda con pliegues o volumen, hardware y costuras decorativas.",[],"parcial","Parcial 3 (prenda con detalles)"],
-    [26,"2026-12-01",4,"Asesoría de proyecto y render","Revisión uno a uno, ajuste de tela, iluminación y exportación de imágenes.",[],"clase","Proyecto final listo para presentar"],
-    [27,"2026-12-02",4,"Evaluación final","Presentación del proyecto: prenda completa simulada, patronaje y láminas de render.",[],"final","Evaluación final + carpeta digital"]
-  ];
+function makeQ(){var pool=ITEMS.filter(function(i){return i.key});var x=pool[Math.floor(Math.random()*pool.length)];
+ var keys=[];pool.forEach(function(i){if(i.key!==x.key&&keys.indexOf(i.key)<0)keys.push(i.key)});
+ var opts=[x.key];while(opts.length<4&&keys.length)opts.push(keys.splice(Math.floor(Math.random()*keys.length),1)[0]);
+ opts.sort(function(){return Math.random()-.5});return{name:x.name,answer:x.key,options:opts}}
 
-  keyDates = [
-    { what: "Inicio de clases", when: "Lunes 31 de agosto de 2026" },
-    { what: "Días inhábiles", when: "16 de septiembre y 16 de noviembre" },
-    { what: "Exámenes parciales", when: "21–25 sep · 19–23 oct · 23–27 nov" },
-    { what: "Evaluación final", when: "30 de noviembre al 4 de diciembre" },
-    { what: "Exámenes extraordinarios", when: "7 al 11 de diciembre" },
-    { what: "Exámenes a título", when: "14 al 18 de diciembre" },
-    { what: "Suspensión de clases", when: "20 de diciembre al 3 de enero" },
-    { what: "Inicio próximo cuatrimestre", when: "5 de enero de 2027" }
-  ];
+function matchS(r){if(!q)return true;return (r[3]+" "+r[4]+" "+r[6]+" "+r[7]+" "+r[5].join(" ")).toLowerCase().indexOf(q)>=0}
 
-  meses = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
-  dows = ["dom","lun","mar","mié","jue","vie","sáb"];
-
-  componentDidMount() {
-    try {
-      const a = localStorage.getItem("clo3d-progreso");
-      const b = localStorage.getItem("clo3d-sesiones");
-      const st = {};
-      if (a) st.done = JSON.parse(a);
-      if (b) st.sdone = JSON.parse(b);
-      if (a || b) this.setState(st);
-    } catch (e) {}
-    if (!this.state.quiz) this.setState({ quiz: this.makeQuestion() });
-  }
-
-  save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
-
-  allItems() {
-    const out = [];
-    this.data.forEach(d => d.blocks.forEach(b => b.groups.forEach(g => g.items.forEach(it => {
-      out.push({ id: d.day + "-" + b.n + "-" + it[0], name: it[0], key: it[1] || "" });
-    }))));
-    return out;
-  }
-
-  makeQuestion() {
-    const pool = this.allItems().filter(i => i.key);
-    const q = pool[Math.floor(Math.random() * pool.length)];
-    const keys = Array.from(new Set(pool.map(i => i.key))).filter(k => k !== q.key);
-    const opts = [q.key];
-    while (opts.length < 4 && keys.length) opts.push(keys.splice(Math.floor(Math.random() * keys.length), 1)[0]);
-    return { name: q.name, answer: q.key, options: opts.sort(() => Math.random() - 0.5) };
-  }
-
-  todayIso() {
-    const d = new Date();
-    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-  }
-
-  renderVals() {
-    const s = this.state;
-    const q = s.q.trim().toLowerCase();
-    const today = this.todayIso();
-    const isPrograma = s.view === "programa";
-
-    const matchS = r => !q || (r[3] + " " + r[4] + " " + r[6] + " " + r[7] + " " + r[5].join(" ")).toLowerCase().includes(q);
-    const visible = this.sesiones.filter(matchS);
-    const next = this.sesiones.find(r => r[1] >= today);
-    const nextRow = next || null;
-
-    const fmt = iso => {
-      const p = iso.split("-").map(Number);
-      const d = new Date(p[0], p[1] - 1, p[2]);
-      return { day: p[2], month: this.meses[p[1] - 1], dow: this.dows[d.getDay()] };
-    };
-
-    const modules = this.modulos.map(mo => {
-      const rows = visible.filter(r => r[2] === mo.m);
-      const all = this.sesiones.filter(r => r[2] === mo.m);
-      const a = fmt(all[0][1]), b = fmt(all[all.length - 1][1]);
-      return {
-        title: mo.title, goal: mo.goal,
-        range: a.day + " " + a.month + " – " + b.day + " " + b.month,
-        count: all.length + " sesiones",
-        sessions: rows.map(r => {
-          const f = fmt(r[1]);
-          const on = !!s.sdone[r[0]];
-          const isToday = r[1] === today;
-          const isNext = nextRow && nextRow[0] === r[0] && !isToday;
-          const evalu = r[6] !== "clase";
-          return {
-            num: "Sesión " + r[0] + " · 7:00–9:00",
-            day: f.day, month: f.month, dow: f.dow,
-            title: r[3], focus: r[4], keys: r[5], entrega: r[7],
-            tipo: isToday ? "Hoy" : isNext ? "Próxima" : r[6] === "parcial" ? "Parcial" : r[6] === "final" ? "Final" : "Clase",
-            tagClass: isToday || isNext ? "tag tag-accent" : evalu ? "tag tag-accent-2" : "tag tag-outline",
-            bg: isToday || isNext ? "var(--color-accent-100)" : on ? "var(--color-accent-2-100)" : "var(--color-neutral-100)",
-            bd: isToday || isNext ? "var(--color-accent-300)" : "var(--color-neutral-200)",
-            accent: evalu ? "var(--color-accent-2)" : isToday || isNext ? "var(--color-accent)" : "var(--color-neutral-300)",
-            mark: on ? "✓" : "",
-            dotBg: on ? "var(--color-accent-2)" : "transparent",
-            dotBd: on ? "var(--color-accent-2)" : "var(--color-neutral-400)",
-            toggle: () => this.setState(st => {
-              const sd = Object.assign({}, st.sdone);
-              if (sd[r[0]]) delete sd[r[0]]; else sd[r[0]] = 1;
-              this.save("clo3d-sesiones", sd);
-              return { sdone: sd };
-            })
-          };
-        })
-      };
-    }).filter(mo => mo.sessions.length);
-
-    const blocks = [];
-    this.data.forEach(d => {
-      if (s.day && s.day !== d.day) return;
-      d.blocks.forEach(b => {
-        const groups = [];
-        b.groups.forEach(g => {
-          const items = g.items.filter(it => !q || (it[0] + " " + (it[1] || "")).toLowerCase().includes(q));
-          if (items.length) groups.push({ label: g.label, items: items.map(it => {
-            const id = d.day + "-" + b.n + "-" + it[0];
-            const on = !!s.done[id];
-            return {
-              name: it[0],
-              keys: it[1] ? it[1].split("+").map(k => k.trim()) : [],
-              mark: on ? "✓" : "",
-              dotBg: on ? "var(--color-accent-2)" : "transparent",
-              dotBd: on ? "var(--color-accent-2)" : "var(--color-neutral-400)",
-              rowBg: on ? "var(--color-accent-2-100)" : "transparent",
-              strike: on ? "line-through" : "none",
-              toggle: () => this.setState(st => {
-                const done = Object.assign({}, st.done);
-                if (done[id]) delete done[id]; else done[id] = 1;
-                this.save("clo3d-progreso", done);
-                return { done };
-              })
-            };
-          }) });
-        });
-        if (groups.length) blocks.push({ day: d.day, dayTitle: d.dayTitle, n: b.n, title: b.title, groups });
-      });
-    });
-
-    const all = this.allItems();
-    const doneCount = all.filter(i => s.done[i.id]).length;
-    const sDoneCount = this.sesiones.filter(r => s.sdone[r[0]]).length;
-    const shown = blocks.reduce((n, b) => n + b.groups.reduce((m, g) => m + g.items.length, 0), 0);
-    const quiz = s.quiz || { name: "", answer: "", options: [] };
-    const nf = nextRow ? fmt(nextRow[1]) : null;
-
-    return {
-      isPrograma, isAtajos: !isPrograma,
-      modules, keyDates: this.keyDates, blocks,
-      empty: isPrograma ? modules.length === 0 : blocks.length === 0,
-      views: [["programa", "Programa del cuatrimestre"], ["atajos", "Atajos y herramientas"]].map(([v, label]) => ({
-        label,
-        bg: s.view === v ? "var(--color-accent)" : "transparent",
-        fg: s.view === v ? "var(--color-neutral-100)" : "var(--color-text)",
-        bd: s.view === v ? "var(--color-accent)" : "var(--color-neutral-300)",
-        onClick: () => this.setState({ view: v })
-      })),
-      todayLabel: (() => { const f = fmt(today); return "Hoy: " + f.dow + " " + f.day + " " + f.month; })(),
-      nextLabel: nextRow ? "Próxima sesión: " + nf.dow + " " + nf.day + " " + nf.month + " · " + nextRow[3] : "Cuatrimestre concluido",
-      progressTitle: isPrograma ? "Sesiones cursadas" : "Herramientas dominadas",
-      progressLabel: isPrograma ? sDoneCount + " / " + this.sesiones.length + " sesiones" : doneCount + " / " + all.length + " temas",
-      pct: isPrograma ? Math.round((sDoneCount / this.sesiones.length) * 100) : Math.round((doneCount / all.length) * 100),
-      countLabel: shown + " herramientas visibles",
-      onSearch: e => this.setState({ q: e.target.value }),
-      resetProgress: () => {
-        if (isPrograma) { this.save("clo3d-sesiones", {}); this.setState({ sdone: {} }); }
-        else { this.save("clo3d-progreso", {}); this.setState({ done: {} }); }
-      },
-      pills: [[0, "Todo el curso"], [1, "Módulo 1"], [2, "Módulo 2"], [3, "Módulo 3"]].map(([v, label]) => ({
-        label,
-        bg: s.day === v ? "var(--color-accent)" : "transparent",
-        fg: s.day === v ? "var(--color-neutral-100)" : "var(--color-text)",
-        bd: s.day === v ? "var(--color-accent)" : "var(--color-neutral-300)",
-        onClick: () => this.setState({ day: v })
-      })),
-      quizMode: s.quizMode,
-      quizLabel: s.quizMode ? "Cerrar modo examen" : "Modo examen",
-      toggleQuiz: () => this.setState({ quizMode: !s.quizMode, quiz: s.quiz || this.makeQuestion() }),
-      quizPrompt: quiz.name,
-      scoreLabel: s.asked ? s.score + " correctas de " + s.asked : "Sin respuestas aún",
-      quizFeedback: s.picked ? (s.picked === quiz.answer ? "¡Correcto!" : "Era " + quiz.answer) : "Elige una opción.",
-      quizOptions: quiz.options.map(o => {
-        const answered = !!s.picked;
-        const right = answered && o === quiz.answer;
-        const wrong = answered && s.picked === o && o !== quiz.answer;
-        return {
-          label: o,
-          bg: right ? "var(--color-accent-2-200)" : wrong ? "var(--color-accent-200)" : "var(--color-neutral-100)",
-          bd: right ? "var(--color-accent-2)" : wrong ? "var(--color-accent)" : "var(--color-neutral-300)",
-          onClick: () => { if (s.picked) return; this.setState(st => ({ picked: o, asked: st.asked + 1, score: st.score + (o === quiz.answer ? 1 : 0) })); }
-        };
-      }),
-      nextQuestion: () => this.setState({ quiz: this.makeQuestion(), picked: null })
-    };
-  }
+function renderPrograma(){
+ var next=null;for(var i=0;i<D.sesiones.length;i++){if(D.sesiones[i][1]>=TODAY){next=D.sesiones[i];break}}
+ var f=fmt(TODAY);document.getElementById("hoy").textContent="Hoy: "+f.w+" "+f.d+" "+f.m;
+ var nf=next?fmt(next[1]):null;
+ document.getElementById("prox").textContent=next?"Próxima sesión: "+nf.w+" "+nf.d+" "+nf.m+" · "+next[3]:"Cuatrimestre concluido";
+ var out="",any=false;
+ D.modulos.forEach(function(mo){
+  var all=D.sesiones.filter(function(r){return r[2]===mo.m});
+  var rows=all.filter(matchS);if(!rows.length)return;any=true;
+  var a=fmt(all[0][1]),b=fmt(all[all.length-1][1]);
+  out+='<section class="mod" style="margin-bottom:26px"><div class="modhead"><h2>'+esc(mo.title)+'</h2><span class="tag t-a">'+a.d+" "+a.m+" – "+b.d+" "+b.m+'</span><span class="tag t-n">'+all.length+' sesiones</span><span style="flex:1 1 200px;font-size:15.5px;color:var(--n700)">'+esc(mo.goal)+'</span></div>';
+  rows.forEach(function(r){
+   var d=fmt(r[1]),on=!!sdone[r[0]],isT=r[1]===TODAY,isN=next&&next[0]===r[0]&&!isT,ev=r[6]!=="clase";
+   var cls="ses"+(isT||isN?" now":"")+(ev?" eval":"")+(on&&!(isT||isN)?" done":"");
+   var tipo=isT?"Hoy":isN?"Próxima":r[6]==="parcial"?"Parcial":r[6]==="final"?"Final":"Clase";
+   var tcls=isT||isN?"t-a":ev?"t-s":"t-o";
+   out+='<article class="'+cls+'"><div class="date"><span class="w">'+d.w+'</span><span class="d">'+d.d+'</span><span class="m">'+d.m+'</span></div><div class="body"><div style="display:flex;gap:9px;align-items:baseline;flex-wrap:wrap"><span style="font-size:12.5px;font-weight:800;color:var(--a700)">Sesión '+r[0]+' · 7:00–9:00</span><h3>'+esc(r[3])+'</h3><span class="tag '+tcls+'">'+tipo+'</span></div><p>'+esc(r[4])+'</p>'+
+   (r[5].length?'<div class="keys">'+r[5].map(function(k){return '<span class="key">'+esc(k)+'</span>'}).join("")+'</div>':"")+
+   (r[7]?'<span class="entrega">Entrega: '+esc(r[7])+'</span>':"")+
+   '</div><button class="chk'+(on?" on":"")+'" data-ses="'+r[0]+'" title="Marcar sesión vista">'+(on?"✓":"")+'</button></article>';
+  });
+  out+='</section>';
+ });
+ out+='<section class="sec"><h2 style="font-size:27px">Fechas del calendario escolar</h2><div class="grid">'+D.fechas.map(function(x){return '<div class="fecha"><b>'+esc(x[0])+'</b><span>'+esc(x[1])+'</span></div>'}).join("")+'</div></section>';
+ document.getElementById("programa").innerHTML=out;
+ return any;
 }
+
+function renderAtajos(){
+ var out='<div style="display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:16px">';
+ [[0,"Todo el curso"],[1,"Módulo 1"],[2,"Módulo 2"],[3,"Módulo 3"]].forEach(function(p){
+  out+='<button class="pill'+(mod===p[0]?" on":"")+'" data-mod="'+p[0]+'">'+p[1]+'</button>';
+ });
+ var shown=0,cards="";
+ D.atajos.forEach(function(g){
+  if(mod&&mod!==g.day)return;
+  g.blocks.forEach(function(b){
+   var gs="";
+   b.groups.forEach(function(gr){
+    var items=gr.items.filter(function(it){return !q||(it[0]+" "+(it[1]||"")).toLowerCase().indexOf(q)>=0});
+    if(!items.length)return;shown+=items.length;
+    gs+='<div style="display:flex;flex-direction:column;gap:8px">'+(gr.label?'<span class="glabel">'+esc(gr.label)+'</span>':"");
+    items.forEach(function(it){
+     var id=g.day+"-"+b.n+"-"+it[0],on=!!done[id];
+     gs+='<div class="row'+(on?" on":"")+'"><button class="chk sm'+(on?" on":"")+'" data-item="'+esc(id)+'" title="Marcar como dominado">'+(on?"✓":"")+'</button><span class="name">'+esc(it[0])+'</span>'+
+      (it[1]?it[1].split("+").map(function(k){return '<span class="key">'+esc(k.trim())+'</span>'}).join(""):"")+'</div>';
+    });
+    gs+='</div>';
+   });
+   if(!gs)return;
+   cards+='<article class="card"><div style="display:flex;flex-direction:column;gap:7px"><div style="display:flex;gap:7px;flex-wrap:wrap"><span class="tag t-a">Módulo '+g.day+'</span><span class="tag t-o">Bloque '+b.n+'</span></div><h3>'+esc(b.title)+'</h3><span style="font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--n600);font-weight:800">'+esc(g.dayTitle)+'</span></div>'+gs+'</article>';
+  });
+ });
+ out+='<span class="tag t-n">'+shown+' herramientas visibles</span></div><div class="cards">'+cards+'</div>';
+ document.getElementById("atajos").innerHTML=out;
+ return shown>0;
+}
+
+function renderProgress(){
+ var p=view==="programa";
+ var dc=p?D.sesiones.filter(function(r){return sdone[r[0]]}).length:ITEMS.filter(function(i){return done[i.id]}).length;
+ var tot=p?D.sesiones.length:ITEMS.length;
+ document.getElementById("ptitle").textContent=p?"Sesiones cursadas":"Herramientas dominadas";
+ document.getElementById("plabel").textContent=dc+" / "+tot+(p?" sesiones":" temas");
+ document.getElementById("pfill").style.width=Math.round(dc/tot*100)+"%";
+}
+
+function renderQuiz(){
+ var el=document.getElementById("quiz");el.hidden=!quizOn;
+ document.getElementById("quizbtn").textContent=quizOn?"Cerrar modo examen":"Modo examen";
+ if(!quizOn)return;
+ if(!quiz)quiz=makeQ();
+ document.getElementById("qprompt").textContent=quiz.name;
+ document.getElementById("score").textContent=asked?score+" correctas de "+asked:"Sin respuestas aún";
+ document.getElementById("qfb").textContent=picked?(picked===quiz.answer?"¡Correcto!":"Era "+quiz.answer):"Elige una opción.";
+ document.getElementById("qopts").innerHTML=quiz.options.map(function(o){
+  var c="opt";if(picked){if(o===quiz.answer)c+=" right";else if(o===picked)c+=" wrong"}
+  return '<button class="'+c+'" data-opt="'+esc(o)+'">'+esc(o)+'</button>';
+ }).join("");
+}
+
+function render(){
+ var p=view==="programa";
+ document.getElementById("programa").hidden=!p;
+ document.getElementById("atajos").hidden=p;
+ var any=p?renderPrograma():renderAtajos();
+ if(p)renderAtajos();else renderPrograma();
+ document.getElementById("programa").hidden=!p;
+ document.getElementById("atajos").hidden=p;
+ document.getElementById("vacio").hidden=any;
+ renderProgress();renderQuiz();
+}
+
+document.addEventListener("click",function(e){
+ var t=e.target.closest("button");if(!t)return;
+ if(t.dataset.view){view=t.dataset.view;document.querySelectorAll("[data-view]").forEach(function(b){b.classList.toggle("on",b.dataset.view===view)});render();return}
+ if(t.dataset.mod!==undefined){mod=+t.dataset.mod;render();return}
+ if(t.dataset.ses){var k=t.dataset.ses;if(sdone[k])delete sdone[k];else sdone[k]=1;save("clo3d-sesiones",sdone);render();return}
+ if(t.dataset.item){var i=t.dataset.item;if(done[i])delete done[i];else done[i]=1;save("clo3d-progreso",done);render();return}
+ if(t.id==="quizbtn"){quizOn=!quizOn;renderQuiz();return}
+ if(t.id==="qnext"){quiz=makeQ();picked=null;renderQuiz();return}
+ if(t.dataset.opt&&!picked){picked=t.dataset.opt;asked++;if(picked===quiz.answer)score++;renderQuiz();return}
+ if(t.id==="reset"){if(view==="programa"){sdone={};save("clo3d-sesiones",sdone)}else{done={};save("clo3d-progreso",done)}render();return}
+});
+document.getElementById("q").addEventListener("input",function(e){q=e.target.value.trim().toLowerCase();render()});
+render();
 </script>
 </body>
 </html>
