@@ -76,13 +76,13 @@ input[type=search]:focus{outline:none;border-bottom-color:var(--tx)}
 .track>i{display:block;height:100%;background:var(--tx);transition:width .6s var(--ease)}
 
 /* Módulos */
-.mod{padding-top:56px}
-.modhead{display:flex;flex-direction:column;gap:10px;padding-bottom:24px}
+.mod{display:flex;flex-direction:column;gap:12px;padding-top:56px}
+.modhead{display:flex;flex-direction:column;gap:10px;padding-bottom:12px}
 .modk{font-size:13.5px;color:var(--tx3)}
 .modk .t-a{color:var(--tx)}
 .modhead h2{font-size:clamp(26px,4.6vw,34px)}
 .modgoal{max-width:64ch;font-size:16px;color:var(--tx2);text-wrap:pretty}
-.modinfo{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 44px;padding-bottom:30px}
+.modinfo{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 44px;padding-bottom:18px}
 .minfo{display:flex;flex-direction:column;gap:8px}
 .minfo>b{font-size:13.5px;font-weight:500;color:var(--tx3)}
 .minfo p,.minfo ul{font-size:14.5px;line-height:1.6;color:var(--tx2)}
@@ -90,12 +90,14 @@ input[type=search]:focus{outline:none;border-bottom-color:var(--tx)}
 .minfo li::marker{color:var(--tx3)}
 .minfo strong,.pctag{color:var(--tx);font-weight:600}
 
-/* Sesiones: lista con líneas finas */
-.ses{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:0 20px;padding:24px 0;border-top:1px solid var(--ln);scroll-margin-top:80px}
-.date{display:flex;flex-direction:column;gap:3px;padding-top:2px;font-size:12.5px;color:var(--tx3)}
-.date .d{font-size:22px;font-weight:600;line-height:1.05;color:var(--tx2)}
-.ses.now .date .d{color:var(--tx)}
-.ses.off{opacity:.5}
+/* Sesiones: cada día en su propio bloque, con la fecha grande */
+.ses{display:grid;grid-template-columns:60px minmax(0,1fr) auto;gap:0 20px;padding:22px 24px;background:#0c0c0f;border:1px solid #1e1e24;border-radius:16px;scroll-margin-top:80px;transition:border-color .2s}
+.ses:hover{border-color:#2e2e36}
+.date{display:flex;flex-direction:column;gap:4px;padding-top:1px;font-size:12.5px;color:var(--tx3)}
+.date .d{font-size:28px;font-weight:600;line-height:1;color:var(--tx)}
+.ses.now{background:#131317;border-color:#4b4b56}
+.ses.off{background:transparent;border-style:dashed;opacity:.55}
+.ses.off .date .d{color:var(--tx2)}
 .body{display:flex;flex-direction:column;gap:12px;min-width:0}
 .shead{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px}
 .snum{flex:1 1 100%;font-size:13px;color:var(--tx3)}
@@ -152,21 +154,34 @@ kbd.pv{border-style:dashed;color:var(--tx3)}
 .mform span{font-size:14px;color:var(--tx);font-variant-numeric:tabular-nums}
 .med .pvnote,.pat .pvnote{display:block;margin-top:12px}
 .scrollx{overflow-x:auto;-webkit-overflow-scrolling:touch}
-/* Patrones de ejemplo: dibujos a escala; una unidad del dibujo es 1 cm y --k es cuántos px mide 1 cm */
-.patfig{--k:4.3px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:flex-start;padding:4px 0}
-@media(min-width:700px){.patfig{--k:4.8px}}
-.patfig svg{display:block;flex:0 0 auto;max-width:100%;height:auto;overflow:visible}
-.patfig path,.patfig rect{vector-effect:non-scaling-stroke;fill:none}
-.patfig .cons{stroke:#2a2a31;stroke-width:1;stroke-dasharray:4 3}
-.patfig .ref{stroke:#3a3a43;stroke-width:1;stroke-dasharray:1.5 3}
-.patfig .rec{stroke:#4a4a54;stroke-width:1;stroke-dasharray:3 3}
-.patfig .mid{stroke:#4a4a54;stroke-width:1;stroke-dasharray:9 3 2 3}
-.patfig .ol{fill:rgba(255,255,255,.03);stroke:var(--tx);stroke-width:1.4;stroke-linejoin:round}
-.patfig .dim{stroke:#5a5a64;stroke-width:1}
-.patfig .gr{stroke:#6a6a74;stroke-width:1;stroke-linejoin:round}
-.patfig text{font-family:Figtree,sans-serif;font-size:2.5px;font-weight:500;fill:var(--tx3)}
-.patfig .dt{fill:var(--tx2);font-weight:600}
-.patfig .pn{font-size:2.6px;font-weight:600;fill:var(--tx);letter-spacing:.06em}
+/* Hojas de patrón: papel cuadriculado a escala; 1 unidad del dibujo = 1 cm y --k es cuántos px mide 1 cm */
+.hojas{--k:4px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;overflow-x:auto;padding:2px 0 4px}
+@media(min-width:641px){.hojas{--k:4.5px;margin:0 -42px 0 -80px}}
+@media(max-width:640px){.hoja{max-width:100%}}
+.hoja{display:block;flex:0 0 auto;height:auto}
+.hoja path,.hoja rect,.hoja circle{vector-effect:non-scaling-stroke}
+.hoja .papel{fill:#f4f1ea}
+.hoja .cuad{fill:none;stroke:#e1dbce;stroke-width:1}
+.hoja .cons{fill:none;stroke:#aaa396;stroke-width:1}
+.hoja .ref{fill:none;stroke:#aaa396;stroke-width:1;stroke-dasharray:5 4}
+.hoja .ol{fill:rgba(255,255,255,.45);stroke:#151515;stroke-width:2.2;stroke-linejoin:round}
+.hoja .net{fill:none;stroke:#151515;stroke-width:1.2;stroke-dasharray:5 4}
+.hoja .fino{fill:none;stroke:#151515;stroke-width:1.3}
+.hoja .zip{fill:none;stroke:#151515;stroke-width:1.1;stroke-linejoin:round}
+.hoja .zip2{fill:none;stroke:#151515;stroke-width:2.4;stroke-linecap:round}
+.hoja .boton{fill:#151515}
+.hoja .s{fill:none;stroke:#2563c9;stroke-width:1.5}
+.hoja .l{fill:none;stroke:#c93a3a;stroke-width:1.5}
+.hoja .az{fill:none;stroke:#2563c9;stroke-width:1.2}.hoja .az-f{fill:#2563c9}
+.hoja .rj{fill:none;stroke:#c93a3a;stroke-width:1.1}.hoja .rj-f{fill:#c93a3a}
+.hoja .ng{fill:none;stroke:#151515;stroke-width:1.1}.hoja .ng-f{fill:#151515}
+.hoja .gr{fill:none;stroke:#57534c;stroke-width:1.1;stroke-linejoin:round}
+.hoja .lupa{fill:none;stroke:#57534c;stroke-width:1}
+.hoja text{font-family:Figtree,sans-serif;font-size:2.5px;font-weight:500;fill:#222}
+.hoja .tt{font-size:3px;font-weight:700;letter-spacing:.05em;fill:#111}
+.hoja .st{fill:#5b5750}
+.hoja .pn{font-size:2.8px;font-weight:700;letter-spacing:.08em;fill:#111}
+.hoja .cs{fill:#2563c9}.hoja .cl{fill:#c93a3a}
 
 /* Fechas del calendario */
 .sec{display:flex;flex-direction:column;gap:20px;padding-top:72px}
@@ -248,9 +263,9 @@ footer{max-width:72ch;margin-top:80px;padding-top:20px;border-top:1px solid var(
  .tabs{gap:6px 18px}
  .tools{flex:1 1 100%;justify-content:space-between}
  input[type=search]{max-width:none}
- .ses{grid-template-columns:minmax(0,1fr) auto;row-gap:10px;padding:20px 0}
+ .ses{grid-template-columns:minmax(0,1fr) auto;row-gap:12px;padding:18px 16px}
  .date{grid-column:1;grid-row:1;flex-direction:row;align-items:baseline;gap:6px;padding-top:0}
- .date .d{font-size:15px}
+ .date .d{font-size:20px}
  .ses>.chk{grid-column:2;grid-row:1}
  .ses>.body{grid-column:1/-1;grid-row:2}
  .kgrid{grid-template-columns:1fr}
@@ -346,77 +361,156 @@ function modInfo(mo,all,fin){
   '<div class="minfo ev"><b>Cómo se evalúa</b><p>'+esc(nota)+'</p>'+(ev.length?'<ul>'+ev.map(function(e){return '<li>'+(e[2]!=null?'<span class="pctag">'+e[2]+' %</span> ':"")+'<strong>'+esc(e[0])+'</strong>'+(e[1]?' — '+esc(e[1]):"")+'</li>'}).join("")+'</ul>':"")+'</div></div>';
 }
 
-// --- Patrones de ejemplo: dibujos a escala (1 unidad del dibujo = 1 cm) ---
-// Usan las mismas medidas de ejemplo que D.medidas (sesiones 12 y 20) y los pasos de la sesión 13.
-// Blusa: el costado va a la izquierda y el centro a la derecha, como dice la nota de la sesión 12.
-var PAT={
- 12:{t:"Patrón de ejemplo · media pieza del delantero",
-  n:"A escala, con las medidas de ejemplo. Así queda al final de la sesión 12: escote y sisa todavía rectos.",
-  p:[{tipo:"blusa",nombre:"Delantero",sub:"mitad",mitad:true,ancho:25,largo:60,hombro:6,cuello:11.5,caida:4,sisa:24,escote:8}]},
- 13:{t:"Patrón de ejemplo · blusa desdoblada y curvada",
-  n:"A escala. Punteado: las líneas rectas de la sesión 12. Las curvas de escote y sisa son de referencia; cada quien las ajusta a mano con C.",
-  p:[{tipo:"blusa",nombre:"Delantero",ancho:25,largo:60,hombro:6,cuello:11.5,caida:4,sisa:24,escote:8},
-     {tipo:"blusa",nombre:"Espalda",ancho:25,largo:60,hombro:6,cuello:11.5,caida:4,sisa:24,escote:2}]},
- 20:{t:"Patrón de ejemplo · pantalón recto sin pinzas",
-  n:"A escala, una pierna; la otra es un clon en espejo. El bajo va centrado en la línea de hilo y la curva de tiro es de referencia.",
-  p:[{tipo:"pantalon",nombre:"Delantero",ancho:29,largo:100,ext:4,cadera:18,tiro:26,costado:4,centro:1,sube:0,bajo:21},
-     {tipo:"pantalon",nombre:"Trasero",ancho:36,largo:100,ext:9,cadera:18,tiro:26,costado:4,centro:3,sube:3,bajo:24}]}
+// --- Hojas de patrón de las clases que faltan (sesiones 21, 23 y 24) ---
+// Dibujos a escala (1 unidad = 1 cm) sobre papel cuadriculado. La base es el pantalón de ejemplo de la
+// sesión 20 (D.medidas[20], talla M). Pliegue, pretina, cremallera, bolsas, graduación y margen de costura
+// no vienen en los datos del curso: son valores de ejemplo que aprobó el profesor.
+var PANT={
+ del:{nombre:"Delantero",ancho:29,largo:100,ext:4,cadera:18,tiro:26,costado:4,centro:1,sube:0,bajo:21},
+ tra:{nombre:"Trasero",ancho:36,largo:100,ext:9,cadera:18,tiro:26,costado:4,centro:3,sube:3,bajo:24}
 };
+var PAT={
+ 21:{t:"Hojas de patrón · delantero, trasero y pretina",
+  n:"Medidas de ejemplo en talla M, a escala. El pliegue de 4 cm en cada delantero ajusta la cintura del pantalón de 80 a 72 cm; la pretina mide esos 72 cm más 4 de cruce para el botón.",
+  h:[{tipo:"pant",p:"del",titulo:"Patrón delantero · pantalón con pliegue",pliegue:4,cremallera:15},
+     {tipo:"pant",p:"tra",titulo:"Patrón trasero · pantalón con bolsa",bolsa:[13,15,7]},
+     {tipo:"pretina",titulo:"Pretina",cintura:72,cruce:4,ancho:4}]},
+ 23:{t:"Hoja de patrón · delantero graduado",
+  n:"Ejemplo a escala: la talla M es la base; S y L cambian 1 cm de ancho por pieza, medio centímetro en el costado y medio en el tiro.",
+  h:[{tipo:"pant",p:"del",titulo:"Delantero graduado · tallas S, M y L",grad:1}]},
+ 24:{t:"Hoja de patrón · margen de costura",
+  n:"Ejemplo a escala: 1 cm de margen en las costuras y 3 cm en el bajo. Línea continua: corte. Punteada: costura.",
+  h:[{tipo:"pant",p:"del",titulo:"Delantero con margen de costura",margen:1,margenBajo:3}]}
+};
+var HID=0;
 function n2(v){return String(Math.round(v*100)/100)}
+function P(x,y){return n2(x)+" "+n2(y)}
 function tX(x,y,s,c,a,r){return '<text x="'+n2(x)+'" y="'+n2(y)+'"'+(c?' class="'+c+'"':"")+(a?' text-anchor="'+a+'"':"")+(r?' transform="rotate('+r+' '+n2(x)+' '+n2(y)+')"':"")+'>'+esc(s)+'</text>'}
-// Cota horizontal: línea con topes y la medida encima (o debajo).
-function cH(x1,x2,y,s,abajo){return '<path class="dim" d="M'+n2(x1)+' '+n2(y)+'H'+n2(x2)+'M'+n2(x1)+' '+n2(y-1)+'v2M'+n2(x2)+' '+n2(y-1)+'v2"/>'+tX((x1+x2)/2,abajo?y+3.1:y-1.2,s,"dt","middle")}
-// Cota vertical: la medida va a un lado; si es larga, girada a lo largo de la línea.
-function cV(x,y1,y2,s,der){var m=(y1+y2)/2,t=String(s).length<5?tX(der?x+1:x-1,m+.85,s,"dt",der?"start":"end"):tX(der?x+2.9:x-1.2,m,s,"dt","middle",-90);
- return '<path class="dim" d="M'+n2(x)+' '+n2(y1)+'V'+n2(y2)+'M'+n2(x-1)+' '+n2(y1)+'h2M'+n2(x-1)+' '+n2(y2)+'h2"/>'+t}
-// Línea de hilo con flecha en los dos extremos, como en la ventana 2D.
-function hilo(x,y1,y2){return '<path class="gr" d="M'+n2(x)+' '+n2(y1)+'V'+n2(y2)+'M'+n2(x-1)+' '+n2(y1+2)+'L'+n2(x)+' '+n2(y1)+'L'+n2(x+1)+' '+n2(y1+2)+'M'+n2(x-1)+' '+n2(y2-2)+'L'+n2(x)+' '+n2(y2)+'L'+n2(x+1)+' '+n2(y2-2)+'"/>'}
-function pieza(vb,nombre,g){return '<svg viewBox="'+vb.map(n2).join(" ")+'" style="width:calc(var(--k)*'+n2(vb[2])+')" role="img" aria-label="Patrón: '+esc(nombre)+'">'+g+'</svg>'}
+// varias líneas de texto, una debajo de otra
+function tB(x,y,ls,a,c){return ls.map(function(l,i){return tX(x,y+i*3.1,l,c||"",a||"")}).join("")}
+// punta de flecha rellena: la punta en (x,y), apuntando hacia ang
+function pf(x,y,ang,c){var cx=Math.cos(ang),sy=Math.sin(ang),bx=x-1.3*cx,by=y-1.3*sy;return '<path class="'+c+'" d="M'+P(x,y)+"L"+P(bx-.45*sy,by+.45*cx)+"L"+P(bx+.45*sy,by-.45*cx)+'Z"/>'}
+// cota azul con flecha en los dos extremos
+function cota(x1,y1,x2,y2){var a=Math.atan2(y2-y1,x2-x1);return '<path class="az" d="M'+P(x1,y1)+"L"+P(x2,y2)+'"/>'+pf(x1,y1,a+Math.PI,"az-f")+pf(x2,y2,a,"az-f")}
+// flecha de una nota hacia el punto que explica (roja, o del color que se pida)
+function nota(x1,y1,x2,y2,c){c=c||"rj";return '<path class="'+c+'" d="M'+P(x1,y1)+"L"+P(x2,y2)+'"/>'+pf(x2,y2,Math.atan2(y2-y1,x2-x1),c+"-f")}
+// línea de hilo con flecha en los dos extremos
+function hilo(x,y1,y2){return '<path class="gr" d="M'+P(x,y1)+"V"+n2(y2)+"M"+P(x-1,y1+2)+"L"+P(x,y1)+"L"+P(x+1,y1+2)+"M"+P(x-1,y2-2)+"L"+P(x,y2)+"L"+P(x+1,y2-2)+'"/>'}
+function bz(a,b,c,d,n){var o=[];for(var i=1;i<=n;i++){var t=i/n,u=1-t;o.push([u*u*u*a[0]+3*u*u*t*b[0]+3*u*t*t*c[0]+t*t*t*d[0],u*u*u*a[1]+3*u*u*t*b[1]+3*u*t*t*c[1]+t*t*t*d[1]])}return o}
 
-// Pantalón (una pierna): costado a la izquierda, tiro a la derecha. La cintura queda en y=0 y el bajo en y=largo.
-function svgPantalon(p,top){
- var W=p.ancho,L=p.largo,xc=W-p.ext,hy=p.cadera,ty=p.tiro,cr=W/2,b1=cr-p.bajo/2,b2=cr+p.bajo/2,wx=xc-p.centro,wy=-p.sube,sx=p.costado,
-  ol="M"+n2(sx)+" 0C"+n2(sx*.55)+" "+n2(hy*.2)+" 0 "+n2(hy*.55)+" 0 "+n2(hy)+"L"+n2(b1)+" "+n2(L)+"H"+n2(b2)+"L"+n2(W)+" "+n2(ty)+
-   "C"+n2(xc+(W-xc)*.4)+" "+n2(ty)+" "+n2(xc)+" "+n2(hy+(ty-hy)*.62)+" "+n2(xc)+" "+n2(hy)+"L"+n2(wx)+" "+n2(wy)+"Z",
-  g='<rect class="cons" x="0" y="0" width="'+n2(W)+'" height="'+n2(L)+'"/>'+
-   '<path class="ref" d="M-4 '+n2(hy)+"H"+n2(xc)+"M-10 "+n2(ty)+"H"+n2(W)+'"/>'+
-   '<path class="ol" d="'+ol+'"/>'+
-   tX(1.2,hy-1.2,"cadera")+tX(1.2,ty-1.2,"tiro")+tX(xc+2.6,hy/2,"centro","","middle",-90)+tX(-1.6,(ty+L)/2+8,"costado","","middle",-90)+
-   cH(0,sx,-2.6,n2(sx))+(p.sube?cH(wx,xc,wy-2.6,n2(p.centro))+cV(xc+2.2,wy,0,n2(p.sube),true):cH(wx,xc,-2.6,n2(p.centro)))+
-   cH(0,W,top+3.4,n2(W)+" cm")+cV(-4,0,hy,n2(hy))+cV(-10,0,ty,n2(ty))+cV(W+4,0,L,n2(L)+" cm",true)+
-   cH(xc,W,ty+4,n2(p.ext),true)+cH(b1,b2,L+4,n2(p.bajo)+" cm",true)+
-   tX(cr,ty+14,p.nombre.toUpperCase(),"pn","middle")+hilo(cr,ty+19,L-12);
- return pieza([-15,top,W+24,L+9-top],p.nombre,g);
+// Pieza de pantalón (una pierna): costado a la izquierda, tiro a la derecha, cintura en y=0.
+// g: centímetros de ancho que se suman a la pieza (graduación), la mitad en el costado y la mitad en el tiro.
+function pantGeo(p,g){
+ var W=p.ancho,L=p.largo,xc=W-p.ext,hy=p.cadera,ty=p.tiro,cr=W/2,s=-(g||0)/2,c=(g||0)/2,
+  ws=[p.costado+s,0],hs=[s,hy],b1=[cr-p.bajo/2+s,L],b2=[cr+p.bajo/2+c,L],ct=[W+c,ty],hc=[xc+c,hy],wc=[xc-p.centro+c,-p.sube],
+  s1=[p.costado*.55+s,hy*.2],s2=[s,hy*.55],c1=[xc+(W-xc)*.4+c,ty],c2=[xc+c,hy+(ty-hy)*.62];
+ return {W:W,L:L,xc:xc,hy:hy,ty:ty,cr:cr,ws:ws,hs:hs,b1:b1,b2:b2,ct:ct,hc:hc,wc:wc,
+  d:"M"+P(ws[0],ws[1])+"C"+P(s1[0],s1[1])+" "+P(s2[0],s2[1])+" "+P(hs[0],hs[1])+"L"+P(b1[0],b1[1])+"L"+P(b2[0],b2[1])+"L"+P(ct[0],ct[1])+
+   "C"+P(c1[0],c1[1])+" "+P(c2[0],c2[1])+" "+P(hc[0],hc[1])+"L"+P(wc[0],wc[1])+"Z",
+  // contorno como polilínea, para el margen de costura; el tramo del bajo va del punto 17 al 18
+  pts:[ws].concat(bz(ws,s1,s2,hs,16),[b1,b2,ct],bz(ct,c1,c2,hc,20),[wc])};
+}
+// Contorno desplazado hacia afuera; dist(i) es el margen del tramo que va del punto i al siguiente.
+function desplaza(pts,dist){
+ var n=pts.length,A=0,i,o=[];
+ for(i=0;i<n;i++){var p=pts[i],q=pts[(i+1)%n];A+=p[0]*q[1]-q[0]*p[1]}
+ var sg=A>0?1:-1;
+ function lin(i){var p=pts[i],q=pts[(i+1)%n],dx=q[0]-p[0],dy=q[1]-p[1],l=Math.hypot(dx,dy)||1,nx=sg*dy/l,ny=-sg*dx/l,d=dist(i);return{p:[p[0]+nx*d,p[1]+ny*d],v:[dx,dy],nx:nx,ny:ny,d:d}}
+ for(i=0;i<n;i++){var a=lin((i-1+n)%n),b=lin(i),x=a.v[0]*b.v[1]-a.v[1]*b.v[0];
+  if(Math.abs(x)<1e-9){o.push([pts[i][0]+b.nx*b.d,pts[i][1]+b.ny*b.d]);continue}
+  var t=((b.p[0]-a.p[0])*b.v[1]-(b.p[1]-a.p[1])*b.v[0])/x;o.push([a.p[0]+a.v[0]*t,a.p[1]+a.v[1]*t])}
+ return o;
+}
+function poli(pts){return pts.map(function(p,i){return (i?"L":"M")+P(p[0],p[1])}).join("")+"Z"}
+// Papel cuadriculado (líneas cada 5 cm alineadas con el patrón), título y subtítulo.
+function hoja(vb,titulo,sub,g){
+ var x0=vb[0],y0=vb[1],x1=x0+vb[2],y1=y0+vb[3],d="",x,y,cx=x0+vb[2]/2;
+ for(x=Math.ceil(x0/5)*5;x<=x1;x+=5)d+="M"+P(x,y0)+"V"+n2(y1);
+ for(y=Math.ceil(y0/5)*5;y<=y1;y+=5)d+="M"+P(x0,y)+"H"+n2(x1);
+ return '<svg class="hoja" viewBox="'+vb.map(n2).join(" ")+'" style="width:calc(var(--k)*'+n2(vb[2])+')" role="img" aria-label="'+esc(titulo+". "+sub)+'">'+
+  '<rect class="papel" x="'+n2(x0)+'" y="'+n2(y0)+'" width="'+n2(vb[2])+'" height="'+n2(vb[3])+'" rx="1.6"/><path class="cuad" d="'+d+'"/>'+
+  tX(cx,y0+5.4,titulo.toUpperCase(),"tt","middle")+tX(cx,y0+9.4,sub,"st","middle")+g+'</svg>';
 }
 
-// Blusa: media pieza (sesión 12) o pieza desdoblada con escote y sisa curvos (sesión 13).
-function svgBlusa(p,top){
- var A=p.ancho,L=p.largo,hx=p.hombro,nx=p.hombro+p.cuello,cd=p.caida,sy=p.sisa,e=p.escote,full=!p.mitad,W=full?2*A:A;
- function m(x){return 2*A-x}
- // controles de las curvas (lado izquierdo; el derecho es espejo)
- var s1=[hx*.62,sy],s2=[hx*.92,cd+(sy-cd)*.45],e1=[nx+(A-nx)*.06,e*.62],e2=[nx+(A-nx)*.5,e];
- function P(x,y){return n2(x)+" "+n2(y)}
- var ol=full?
-  "M0 "+n2(L)+"L"+P(0,sy)+"C"+P(s1[0],s1[1])+" "+P(s2[0],s2[1])+" "+P(hx,cd)+"L"+P(nx,0)+"C"+P(e1[0],e1[1])+" "+P(e2[0],e2[1])+" "+P(A,e)+
-  "C"+P(m(e2[0]),e2[1])+" "+P(m(e1[0]),e1[1])+" "+P(m(nx),0)+"L"+P(m(hx),cd)+"C"+P(m(s2[0]),s2[1])+" "+P(m(s1[0]),s1[1])+" "+P(W,sy)+"L"+P(W,L)+"Z"
-  :"M0 "+n2(L)+"L"+P(0,sy)+"L"+P(hx,cd)+"L"+P(nx,0)+"L"+P(A,e)+"L"+P(A,L)+"Z";
- var g='<rect class="cons" x="0" y="0" width="'+n2(W)+'" height="'+n2(L)+'"/>';
- if(full)g+='<path class="rec" d="M'+P(0,sy)+"L"+P(hx,cd)+"M"+P(nx,0)+"L"+P(A,e)+"L"+P(m(nx),0)+"M"+P(m(hx),cd)+"L"+P(W,sy)+'"/>'+
-  '<path class="mid" d="M'+P(A,e)+"V"+n2(L)+'"/>';
- g+='<path class="ol" d="'+ol+'"/>'+
-  tX(hx+(nx-hx)/2+.6,cd/2+2.9,"hombro","","middle",-19.18)+tX(full?5.6:4.2,15,"sisa")+tX((nx+A)/2-1.4,e+5.5,"escote","","middle")+
-  tX(-1.6,44,"costado","","middle",-90)+
-  cH(0,W,top+3.4,n2(W)+" cm")+cV(W+(full?4:7),0,L,n2(L)+" cm",true)+cV(A+2.2,0,e,n2(e),true);
- if(full)g+=tX(A-.9,40,"centro","","middle",-90)+tX(A/2,40,p.nombre.toUpperCase(),"pn","middle")+hilo(A*1.5,32,52);
- else g+=cH(0,hx,-3,n2(hx))+cH(hx,nx,-3,n2(p.cuello))+cH(nx,A,-3,n2(A-nx))+cV(-4,0,sy,n2(sy))+cV(hx,0,cd,n2(cd))+
-  tX(A+3.2,40,"centro","","middle",-90)+tX(A/2,33,p.nombre.toUpperCase(),"pn","middle")+tX(A/2,36.6,p.sub||"","","middle")+hilo(A/2,41,54);
- return pieza(full?[-6,top,W+16,L+4-top]:[-10,top,W+19,L+4-top],p.nombre,g);
+function hojaPant(h){
+ var p=PANT[h.p],m=pantGeo(p,0),W=m.W,L=m.L,cr=m.cr,up=p.sube,izq=-23,der=W+(h.bolsa||h.grad?26:25),top=-19-up,bot=L+(h.margen?14:11),g="";
+ g+='<rect class="cons" x="0" y="0" width="'+n2(W)+'" height="'+n2(L)+'"/>'+
+  '<path class="ref" d="M-3 '+n2(m.hy)+"H"+n2(m.xc)+"M-3 "+n2(m.ty)+"H"+n2(W)+'"/>';
+ if(h.grad){
+  var gs=pantGeo(p,-h.grad),gl=pantGeo(p,h.grad),cx=W+12.5,cy=54,R=9,id="det"+(++HID),k=4;
+  g+='<path class="l" d="'+gl.d+'"/><path class="ol" d="'+m.d+'"/><path class="s" d="'+gs.d+'"/>';
+  // etiquetas de talla con su flecha hacia el costado de cada contorno
+  function costadoX(geo,y){return geo.hs[0]+(geo.b1[0]-geo.hs[0])*(y-geo.hy)/(L-geo.hy)}
+  g+=tX(-4,58.9,"Talla L: +"+h.grad+" cm","cl","end")+nota(-3.4,58,costadoX(gl,60),60,"rj")+
+   tX(-4,68.9,"Talla M: base","","end")+nota(-3.4,68,costadoX(m,70),70,"ng")+
+   tX(-4,78.9,"Talla S: −"+h.grad+" cm","cs","end")+nota(-3.4,78,costadoX(gs,80),80,"az");
+  // detalle ampliado del tiro
+  g+='<clipPath id="'+id+'"><circle cx="'+n2(cx)+'" cy="'+n2(cy)+'" r="'+R+'"/></clipPath>'+
+   '<circle class="lupa" cx="'+n2(m.ct[0])+'" cy="'+n2(m.ct[1])+'" r="'+n2(R/k)+'"/>'+
+   '<path class="lupa" d="M'+P(m.ct[0]+R/k*.7,m.ct[1]+R/k*.7)+"L"+P(cx-R*.7,cy-R*.7)+'"/>'+
+   '<g clip-path="url(#'+id+')"><rect class="papel" x="'+n2(cx-R)+'" y="'+n2(cy-R)+'" width="'+2*R+'" height="'+2*R+'"/>'+
+   '<g transform="translate('+P(cx,cy)+") scale("+k+") translate("+P(-m.ct[0],-m.ct[1])+')"><path class="ref" d="M'+P(m.xc-6,m.ty)+"H"+n2(W+6)+'"/>'+
+   '<path class="l" d="'+gl.d+'"/><path class="ol" d="'+m.d+'"/><path class="s" d="'+gs.d+'"/></g></g>'+
+   '<circle class="lupa" cx="'+n2(cx)+'" cy="'+n2(cy)+'" r="'+R+'"/>'+
+   tX(cx-2*k*h.grad/2,cy-1.6,"S","cs","middle")+tX(cx,cy-1.6,"M","","middle")+tX(cx+2*k*h.grad/2,cy-1.6,"L","cl","middle")+
+   tB(cx,cy+R+3.6,["Detalle del tiro","×"+k],"middle");
+ }else if(h.margen){
+  var cut=desplaza(m.pts,function(i){return i===17?h.margenBajo:h.margen});
+  g+='<path class="ol" d="'+poli(cut)+'"/><path class="net" d="'+m.d+'"/>';
+  var sy=52,sx=m.hs[0]+(m.b1[0]-m.hs[0])*(sy-m.hy)/(L-m.hy),iy=62,ix=m.ct[0]+(m.b2[0]-m.ct[0])*(iy-m.ty)/(L-m.ty),ny=74,nx=m.ct[0]+(m.b2[0]-m.ct[0])*(ny-m.ty)/(L-m.ty);
+  g+=tB(-4,49.6,["Margen de","costura: "+h.margen+" cm"],"end")+nota(-3.4,51.6,sx-h.margen,sy)+
+   tX(W+4,60.9,"Línea de corte")+nota(W+3.4,60,ix+h.margen,iy)+
+   tX(W+4,72.9,"Línea de costura")+nota(W+3.4,72,nx,ny)+
+   cota(cr+4,L,cr+4,L+h.margenBajo)+tX(cr+4,L+h.margenBajo+3.6,"Bajo: "+h.margenBajo+" cm","","middle");
+ }else{
+  g+='<path class="ol" d="'+m.d+'"/>';
+  // medidas de la sesión 20, como en la hoja de ejemplo del profesor
+  g+=cota(0,-2.2,p.costado,-2.2)+tB(-4,-1.5,["Costado en","la cintura:",p.costado+" cm adentro"],"end")+nota(-3.4,1.6,m.ws[0],m.ws[1]);
+  g+=tB(-4,m.hy-3.4,["Línea de","cadera: "+m.hy+" cm"],"end")+tB(-4,m.ty-3.4,["Línea de","tiro: "+m.ty+" cm"],"end");
+  g+=(p.sube?tB(W+4,-5,["Centro en la","cintura: "+p.centro+" cm","adentro y","3 cm arriba"])+nota(W+3.4,-0.4,m.wc[0],m.wc[1])
+   :tB(W+4,-1.5,["Centro en","la cintura:",p.centro+" cm adentro"])+nota(W+3.4,1.6,m.wc[0],m.wc[1]));
+  g+=tB(W+4,m.ty-4.2,["Extensión de","tiro: "+p.ext+" cm"])+nota(W+3.4,m.ty-3.1,m.ct[0],m.ct[1])+cota(m.xc,m.ty+2.6,W,m.ty+2.6);
+  g+=cota(m.b1[0],L+3,m.b2[0],L+3)+tX(cr,L+7.2,"Bajo: "+p.bajo+" cm","","middle");
+  if(h.pliegue){
+   var a=cr-h.pliegue/2,b=cr+h.pliegue/2;
+   g+='<path class="fino" d="M'+P(a,0)+"V7M"+P(b,0)+'V7"/>'+cota(a,-2.2,b,-2.2)+tX(cr,-4.4,"Pliegue: "+h.pliegue+" cm","","middle");
+  }
+  if(h.cremallera){
+   // dientes de la cremallera junto al centro del delantero, con un piquete donde termina
+   var z="",n=Math.round(h.cremallera/.7),q=h.cremallera/m.hy;
+   for(var i=0;i<=n;i++){var t=i/n,yy=t*h.cremallera,xx=m.wc[0]+(m.hc[0]-m.wc[0])*yy/m.hy-.9;z+=(i?"L":"M")+P(xx+(i%2?.35:-.35),yy)}
+   var ex=m.wc[0]+(m.hc[0]-m.wc[0])*q;
+   g+='<path class="zip" d="'+z+'"/><path class="fino" d="M'+P(ex-1.6,h.cremallera)+"H"+n2(ex+.6)+'"/>'+
+    tB(W+4,8.2,["Cremallera:",h.cremallera+" cm"])+nota(W+3.4,9.2,ex-1,h.cremallera*.55);
+  }
+  if(h.bolsa){
+   var bw=h.bolsa[0],bh=h.bolsa[1],bd=h.bolsa[2],mx=(m.ws[0]+m.wc[0])/2,my=(m.ws[1]+m.wc[1])/2,x0=mx-bw/2,y0=my+bd;
+   g+='<rect class="fino" x="'+n2(x0)+'" y="'+n2(y0)+'" width="'+bw+'" height="'+bh+'"/>'+
+    '<rect class="net" x="'+n2(x0+.6)+'" y="'+n2(y0+.6)+'" width="'+n2(bw-1.2)+'" height="'+n2(bh-1.2)+'"/>'+
+    cota(mx,my,mx,y0)+tX(mx+1,my+bd/2+.9,bd+" cm")+
+    tB(W+4,8.4,["Bolsa de parche:",bw+" × "+bh+" cm,","a "+bd+" cm de","la cintura"])+nota(W+3.4,11.5,x0+bw,y0+bh*.4);
+  }
+  g+=tX(-3.4,L*.64,"Rectángulo "+W+" × "+L+" cm","","middle",-90)+cota(-2,0,-2,L);
+ }
+ g+=tX(cr,45,p.nombre.toUpperCase(),"pn","middle")+hilo(cr,51,88);
+ var sub=h.grad?"Ancho de la pieza: S "+(W-h.grad)+" cm · M "+W+" cm · L "+(W+h.grad)+" cm":h.margen?h.margen+" cm en las costuras · "+h.margenBajo+" cm en el bajo":"Rectángulo base: "+W+" × "+L+" cm";
+ return hoja([izq,top,der-izq,bot-top],h.titulo,sub,g);
+}
+
+function hojaPretina(h){
+ var Lp=h.cintura+h.cruce,A=h.ancho,ox=2,bx=h.cintura+ox,g="";
+ g+='<rect class="ol" x="0" y="0" width="'+Lp+'" height="'+A+'"/><path class="ref" d="M'+P(h.cintura,0)+"V"+A+'"/>'+
+  '<path class="zip2" d="M'+P(ox-1,A/2)+"H"+n2(ox+1)+'"/><circle class="boton" cx="'+n2(bx)+'" cy="'+n2(A/2)+'" r=".7"/>'+
+  tX(ox,-3.6,"Ojal","","middle")+nota(ox,-2.9,ox,A/2-.8)+tX(bx,-3.6,"Botón","","middle")+nota(bx,-2.9,bx,A/2-1)+
+  cota(0,A+3,h.cintura,A+3)+tX(h.cintura/2,A+7,"Cintura: "+h.cintura+" cm","","middle")+
+  cota(h.cintura,A+3,Lp,A+3)+tX(h.cintura+h.cruce/2,A+7,"Cruce: "+h.cruce+" cm","","middle")+
+  cota(-3,0,-3,A)+tX(-4.2,A/2+.9,A+" cm","","end");
+ return hoja([-11,-17,Lp+19,A+31],h.titulo,A+" × "+Lp+" cm · "+h.cintura+" de cintura + "+h.cruce+" de cruce",g);
 }
 
 function patHTML(pt,op){
- var top=-12-Math.max.apply(null,pt.p.map(function(p){return p.sube||0}));
- return '<details class="pasos pat"'+(op||"")+'><summary>'+esc(pt.t)+'</summary><div class="patfig">'+
-  pt.p.map(function(p){return p.tipo==="pantalon"?svgPantalon(p,top):svgBlusa(p,top)}).join("")+
+ return '<details class="pasos pat"'+(op||"")+'><summary>'+esc(pt.t)+'</summary><div class="hojas">'+
+  pt.h.map(function(h){return h.tipo==="pretina"?hojaPretina(h):hojaPant(h)}).join("")+
   '</div><span class="pvnote">'+esc(pt.n)+'</span></details>';
 }
 
